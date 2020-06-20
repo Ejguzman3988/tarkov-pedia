@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
+require './lib/tarkov_pedia'
+
 TarkovPedia::CLI.new.call

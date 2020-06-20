@@ -1,6 +1,2 @@
-require "tarkov_pedia/version"
-
-module TarkovPedia
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require_relative "./tarkov_pedia/version"
+require_relative "./tarkov_pedia/cli"
