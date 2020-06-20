@@ -1,6 +1,17 @@
 class TarkovPedia::CLI
 
     def call
-        puts "What would you like to do?"
+        greeting
+    end
+
+    def greeting
+        puts "What wouuld you like to search?"
+        
+        puts <<-DOC
+            1. Items
+            2. Quests
+        DOC
+
+        obj = gets.chomp.downcase
     end
 end
