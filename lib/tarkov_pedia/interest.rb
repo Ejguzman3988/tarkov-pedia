@@ -1,10 +1,14 @@
 class TarkovPedia::Interest
+    
+    @@history = []
     attr_accessor :type, :name, :process
 
     def initialize(type)
         @type = type
         get_name(type)
         get_process
+
+        @@history << self
     end
 
     def get_name(user_select)
@@ -20,10 +24,11 @@ class TarkovPedia::Interest
 
         2. price
         
-        3. Back to menu
-        
         DOC
 
         @process = gets.chomp.downcase
+
+
+
     end
 end
