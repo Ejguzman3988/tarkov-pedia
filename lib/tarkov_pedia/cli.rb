@@ -1,10 +1,11 @@
 class TarkovPedia::CLI
 
     def call
-        greeting
+        menu
+        
     end
 
-    def greeting
+    def menu
         puts "What wouuld you like to search?"
         
         puts <<-DOC
@@ -12,6 +13,25 @@ class TarkovPedia::CLI
             2. Quests
         DOC
 
-        obj = gets.chomp.downcase
+        user_select = gets.chomp.downcase
+
+        puts "What is the exact name of the #{user_select.delete_suffix('s')} you wish to search for?"
+        user_type = gets.chomp.downcase
+        puts "Which process would you like to do?"
+
+        puts <<-DOC
+        
+        1. description
+
+        2. price
+        
+        3. go back to menu 
+        
+        DOC
+
+        user_search = gets.chomp.downcase
     end
+
+
+    
 end
