@@ -1,7 +1,8 @@
 class TarkovPedia::CLI
 
     def call
-        menu
+        interest
+        
         
     end
 
