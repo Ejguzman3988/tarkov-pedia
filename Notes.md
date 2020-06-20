@@ -26,7 +26,7 @@ Idea it will be able to check for ballistics, character skills, characters, heal
 Example of how to code would run:
 
 -> tarkov-pedia
-
+What would you like to search.
 1. item 
 2. quest
 .
