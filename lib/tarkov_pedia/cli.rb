@@ -1,15 +1,15 @@
 class TarkovPedia::CLI
 
     def call
-        interest
         
+        TarkovPedia::Interest.new(greeting)
+
         
     end
 
-    
-        
-    def interest
+    def greeting
         puts <<-DOC
+        What would you like to search for?
         1. Items
         2. Quests
         DOC
@@ -17,28 +17,28 @@ class TarkovPedia::CLI
         interest = gets.chomp.downcase
         interest
     end
-
-    def name
-        puts "What is the exact name of the #{user_select.delete_suffix('s')} you wish to search for?"
         
-        name = gets.chomp.downcase
+   
 
-    end
-
-    def process
-            puts "Which process would you like to do?"
-
-        puts <<-DOC
+    # def name
+    #     puts "What is the exact name of the #{user_select.delete_suffix('s')} you wish to search for?"
         
-        1. description
+    #     name = gets.chomp.downcase
 
-        2. price
-        
-        3. Back to menu
-        
-        DOC
+    # end
 
-        process = gets.chomp.downcase
-    end 
+    # def process
+    #     puts <<-DOC
+    #     "Which process would you like to do?"
+    #     1. description
+
+    #     2. price
+        
+    #     3. Back to menu
+        
+    #     DOC
+
+    #     process = gets.chomp.downcase
+    # end 
     
 end
