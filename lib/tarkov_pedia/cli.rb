@@ -120,6 +120,14 @@ class TarkovPedia::CLI
         end
     end
 
+    def display_results(pedia)
+        interest = pedia.interest
+        name = pedia.name
+        process = pedia.process
+        
+        puts pedia.results(interest, name, process)
+    end
+
     def menu
         
         interest = list_interests
@@ -127,7 +135,7 @@ class TarkovPedia::CLI
         process = self.list_processes(interest, name)
         pedia = Pedia.new(interest, name, process)
         
-        pedia.results(interest, name, process)
+        display_results
 
         action?(pedia)
     end

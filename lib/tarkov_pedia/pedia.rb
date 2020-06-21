@@ -11,7 +11,7 @@ class Pedia
     end
     
     def results(interest, name, process)
-        puts <<-DOC
+        result = <<-DOC
         The results for #{interest} are below:
         The #{process} for #{name}: 
 
