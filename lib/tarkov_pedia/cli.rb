@@ -136,10 +136,5 @@ class TarkovPedia::CLI
         process = self.list_processes(interest, name)
         results(interest, name, process)
         action?(interest, name)
-
-
-       
-        
-
     end
 end
