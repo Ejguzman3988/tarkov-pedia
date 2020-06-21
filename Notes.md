@@ -100,7 +100,7 @@ Need to fix Flow Chart!
 
 To Do Next:
 
-Create functionalityof the pedia class
+Create functionality of the pedia class
 
 When a new pedia class is created.
 

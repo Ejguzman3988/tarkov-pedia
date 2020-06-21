@@ -1,4 +1,4 @@
-class Pedia
+class TarkovPedia::Pedia
 
     attr_accessor :interest, :name, :process
 

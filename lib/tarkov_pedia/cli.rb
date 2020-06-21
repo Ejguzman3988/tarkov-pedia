@@ -5,6 +5,18 @@ class TarkovPedia::CLI
        menu
         
     end
+    
+    def menu
+        
+        interest = list_interests
+        name = self.name?(interest)
+        process = self.list_processes(interest, name)
+        pedia = TarkovPedia::Pedia.new(interest, name, process)
+        
+        display_results(pedia)
+
+        action?(pedia)
+    end
 
     # returns - string (the interest without the s)
     def list_interests
@@ -42,13 +54,11 @@ class TarkovPedia::CLI
 
 
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
-        while name != 'tushonka'
+        while !TarkovPedia::Scrapper.exist?(name)
             puts "\n\nSorry we could not find your #{type}."
             puts "Check the name of the #{type} and try again: "
             name = gets.chomp.downcase
         end
-        #Pedia.find_or_create_by_name(name)
-        #Pedia.list_processes
         name
     end
 
@@ -86,10 +96,6 @@ class TarkovPedia::CLI
 
 
     def action?(pedia)
-        interest = pedia.interest
-        name = pedia.name
-        process = pedia.process
-        
         list = <<-DOC
         
         1. To go back type 'back'
@@ -99,9 +105,12 @@ class TarkovPedia::CLI
         3. To exit type 'exit'
         
         DOC
-
         puts list
         action = gets.chomp.downcase
+
+        interest = pedia.interest
+        name = pedia.name
+        process = pedia.process
         
         if action == 'back'
             process = list_processes(interest, name)
@@ -126,17 +135,5 @@ class TarkovPedia::CLI
         process = pedia.process
         
         puts pedia.results(interest, name, process)
-    end
-
-    def menu
-        
-        interest = list_interests
-        name = self.name?(interest)
-        process = self.list_processes(interest, name)
-        pedia = Pedia.new(interest, name, process)
-        
-        display_results
-
-        action?(pedia)
     end
 end
