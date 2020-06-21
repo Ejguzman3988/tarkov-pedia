@@ -2,7 +2,7 @@ class TarkovPedia::Pedia
 
     attr_accessor :interest, :name, :process
     @@all = []
-    @@processes = []
+    @@processes = {}
     def initialize(interest, name)
 
         @interest = interest
@@ -19,9 +19,9 @@ class TarkovPedia::Pedia
         @@all
     end
 
-    def results
+    def results(process)
 
-        self.process
+        @@processes[process.capitalize]
     end
 
     #find takes argument of a bool, pedia object.
@@ -43,23 +43,26 @@ class TarkovPedia::Pedia
     end
 
     def self.list_processes
-        @@processes
+        values = []
+        @@processes.each_value{|value| values << value}
+        @@processes.keys
     end
 
     def grab_processes
-        # @@processes << 'description'
-        # @@processes << 'price'
+        # @@processes['descri]ption'
+        # @@processes['price']
         #TarkovPedia::Scrapper.find_processes -> List of processes
-        TarkovPedia::Scrapper.find_processes.each{|process| @@processes << process}
+        TarkovPedia::Scrapper.find_processes.each{|process| @@processes[process] = nil}
 
     end
 
     def assign?(process)
-        if @process.nil?
-            TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
+        process = process.capitalize
+        if @@processes[process] == nil
+            @@processes[process] = TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
         else
             puts "Old Result"
-            @process
+            @@process[process]
         end
     end
 

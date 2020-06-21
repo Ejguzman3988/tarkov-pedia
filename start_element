@@ -1,0 +1,20 @@
+
+[1mFrom:[0m /mnt/c/Users/Eribe/dev/flatiron/labs/cli/tarkov_pedia/lib/tarkov_pedia/scrapper.rb:36 TarkovPedia::Scrapper.find_results:
+
+    [1;34m31[0m: [32mdef[0m [1;36mself[0m.[1;34mfind_results[0m(process)
+    [1;34m32[0m:     proper_process = process.capitalize()
+    [1;34m33[0m:     processes = [1;34;4mTarkovPedia[0m::[1;34;4mPedia[0m.list_processes
+    [1;34m34[0m:     index = processes.find_index(process.capitalize) [1;34m#index of the process[0m
+    [1;34m35[0m:     start_element = @doc.search([31m[1;31m"[0m[31m#mw-content-text > div > p[1;31m"[0m[31m[0m)[[1;34m0[0m]  [1;34m# Starting element[0m
+ => [1;34m36[0m:     binding.pry
+    [1;34m37[0m:     [32mwhile[0m index == [1;34m1[0m
+    [1;34m38[0m:         [32mif[0m !(start_element.text.include?([31m[1;31m'[0m[31m[edit | edit source][1;31m'[0m[31m[0m))
+    [1;34m39[0m:             start_element = start_element.next_element
+    [1;34m40[0m:         [32melse[0m  
+    [1;34m41[0m:             start_element = start_element.next_element.next_element
+    [1;34m42[0m:         [32mend[0m  
+    [1;34m43[0m:     [32mend[0m
+    [1;34m44[0m:     
+    [1;34m45[0m:     
+    [1;34m46[0m: [32mend[0m
+

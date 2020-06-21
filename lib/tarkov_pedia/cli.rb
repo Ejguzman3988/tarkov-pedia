@@ -151,6 +151,6 @@ DOC
         interest = pedia.interest
         name = pedia.name
         pedia.assign?(process)
-        puts pedia.results
+        puts pedia.results(process)
     end
 end

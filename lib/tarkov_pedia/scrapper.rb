@@ -29,8 +29,34 @@ class TarkovPedia::Scrapper
     end
 
     def self.find_results(process)
-        @doc
-        binding.pry
+        proper_process = process.capitalize()
+        processes = TarkovPedia::Pedia.list_processes
+        index = processes.find_index(process.capitalize) #index of the process
+        start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
+        
+        while index > 0
+            if !(start_element.text.include?('[edit | edit source]'))
+                start_element = start_element.next_element
+            else  
+                start_element = start_element.next_element
+                index = index - 1
+            end  
+        end
+        results = ''
+        
+        while !(start_element.text.include?('[edit | edit source]')) && start_element.name != "table"
+            
+            results << start_element.text
+            if !start_element.next_element.nil?
+                start_element = start_element.next_element
+            else
+                break
+            end
+        end
+        results
+        
+        
+        
     end
 
 end
