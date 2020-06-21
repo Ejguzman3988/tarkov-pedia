@@ -62,7 +62,7 @@ class TarkovPedia::Pedia
             @@processes[process] = TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
         else
             puts "Old Result"
-            @@process[process]
+            @@processes[process]
         end
     end
 

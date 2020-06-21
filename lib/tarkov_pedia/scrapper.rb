@@ -43,10 +43,15 @@ class TarkovPedia::Scrapper
             end  
         end
         results = ''
-        
-        while !(start_element.text.include?('[edit | edit source]')) && start_element.name != "table"
-            
-            results << start_element.text
+       
+        while !(start_element.text.include?('[edit | edit source]'))
+            #checking if element is currently a drop down box.
+            if !(start_element.attributes['class'].nil?) && start_element.attributes['class'].value.include?('va-navbox')
+                break
+            elsif
+                results << start_element.text
+            end
+
             if !start_element.next_element.nil?
                 start_element = start_element.next_element
             else
