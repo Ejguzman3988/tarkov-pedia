@@ -7,7 +7,19 @@ class TarkovPedia::Scrapper
     def self.exist?(name)
     
 
-        name = name.capitalize() if !(name =~ /[A-Z]{2}/)
+        name = name.capitalize! if !(name =~ /[A-Z]{2}/) #Fixes issue with having more than 2 capitalization
+        
+        #Fixes issue with numbers in the middle of a string, prompting the need to capitalize the next word.
+        name = name.split(/(\d+) /) if !(name.split(/(\d+)/).nil?) 
+        name.each_with_index do |part, index|
+            if (part.to_i > 0 && index != name.length)
+                name[index+1] = name[index+1].capitalize
+                name[index] = name[index] + " "
+            end
+        end
+        name = name.join()
+
+        
         name = name.tr(" ", "_")
         url = GAMEPEDIA + name
         
@@ -19,7 +31,9 @@ class TarkovPedia::Scrapper
         begin
             @html = open(url)
             @doc = Nokogiri::HTML(@html)
+            
         rescue => exception
+            puts url
             false
         end
     end
@@ -36,7 +50,7 @@ class TarkovPedia::Scrapper
         index = processes.find_index(proper_process) #index of the process
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         counter = 0
-        while index != 1
+        while index > 1
             
             if !(start_element.text.include?('[edit | edit source]'))
                 start_element = start_element.next_element
