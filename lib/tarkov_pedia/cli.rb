@@ -48,21 +48,21 @@ class TarkovPedia::CLI
         
         puts "What is the exact name of the #{type}?"
         
-        name = gets.chomp.downcase
+        name = gets.chomp
 
 
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
         while !TarkovPedia::Scrapper.exist?(name)
             puts "\n\nSorry we could not find your #{type}."
             puts "Check the name of the #{type} and try again: "
-            name = gets.chomp.downcase
+            name = gets.chomp
             
         end
         name
     end
 
     def list_processes(pedia)
-        puts "\n\n What process would you like to do?"
+        puts "\n\n What would you like to search for concerning #{pedia.name}?"
         TarkovPedia::Pedia.list_processes.each_with_index do |process, i|
             puts "#{i+1}. #{process} "
         end
@@ -109,16 +109,17 @@ class TarkovPedia::CLI
 
         interest = pedia.interest
         name = pedia.name
-        process = pedia.process
+        #process = pedia.process
         
         if action == 'back'
-            process = display_processes(pedia)
+            process = self.display_processes(pedia) 
+            display_results(pedia, process)
             action?(pedia, process)
 
         elsif action  == 'main'
             menu
         elsif action == 'exit'
-            puts "Your search for the #{pedia.process} of the #{pedia.interest}, #{pedia.name}, is complete."
+            puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."
             puts "Thank you for using this product."
             puts "Goodbye!"
             sleep(3)
