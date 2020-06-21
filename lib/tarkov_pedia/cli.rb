@@ -10,9 +10,9 @@ class TarkovPedia::CLI
         
         interest = list_interests
         name = self.name?(interest)
-        process = self.list_processes(interest, name)
-        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name)
-        pedia.process = process
+        process = self.list_processes(interest, name) 
+        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
+        pedia.process = process #assigns the process to pedia
 
         display_results(pedia)
 
@@ -122,6 +122,7 @@ class TarkovPedia::CLI
         elsif action  == 'main'
             menu
         elsif action == 'exit'
+            puts "Your search for the #{pedia.process} of the #{pedia.interest}, #{pedia.name}, is complete."
             puts "Thank you for using this product."
             puts "Goodbye!"
             sleep(3)

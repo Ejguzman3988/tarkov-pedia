@@ -3,6 +3,3 @@
 require './lib/tarkov_pedia'
 
 TarkovPedia::CLI.new.call
-puts TarkovPedia::Pedia.all[0].name
-puts TarkovPedia::Pedia.all[0].interest
-puts TarkovPedia::Pedia.all[0].process
