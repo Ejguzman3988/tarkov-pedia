@@ -11,7 +11,7 @@ class TarkovPedia::CLI
         interest = list_interests
         name = self.name?(interest)
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
-        process = self.list_processes(pedia) 
+        process = self.display_processes(pedia) 
         display_results(pedia, process)
         action?(pedia, process)
     end
@@ -56,25 +56,31 @@ class TarkovPedia::CLI
             puts "\n\nSorry we could not find your #{type}."
             puts "Check the name of the #{type} and try again: "
             name = gets.chomp.downcase
+            
         end
         name
     end
 
     def list_processes(pedia)
-
-        puts TarkovPedia::Pedia.list_processes
-
+        puts "\n\n What process would you like to do?"
+        TarkovPedia::Pedia.list_processes.each_with_index do |process, i|
+            puts "#{i+1}. #{process} "
+        end
+    end
+    
+    def display_processes(pedia)
+        list_processes(pedia)
         process = gets.chomp.downcase
         
-
+        #while pedia.li
         while process != 'description'
             if process == 'price'
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process "
-                puts list
+                list_processes(pedia)
                 process = gets.chomp.downcase
             else
                 puts "\n\nPlease enter a valid process."
-                puts list
+                list_processes(pedia)
 
                 process = gets.chomp.downcase
             end
@@ -106,7 +112,7 @@ class TarkovPedia::CLI
         process = pedia.process
         
         if action == 'back'
-            process = list_processes(interest, name)
+            process = display_processes(pedia)
             action?(pedia, process)
 
         elsif action  == 'main'

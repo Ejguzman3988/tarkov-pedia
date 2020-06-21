@@ -2,7 +2,7 @@ class TarkovPedia::Pedia
 
     attr_accessor :interest, :name, :process
     @@all = []
-    @@processes = ''
+    @@processes = []
     def initialize(interest, name)
 
         @interest = interest
@@ -47,15 +47,9 @@ class TarkovPedia::Pedia
     end
 
     def grab_processes
-        list = <<-Doc
-        What would you like to know about #{@name}?
+        @@processes << 'description'
+        @@processes << 'price'
 
-        1. Description 
-
-        2. Price
-
-        Doc
-        @@processes = list
     end
 
     def assign?(process)
