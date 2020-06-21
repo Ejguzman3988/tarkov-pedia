@@ -10,6 +10,7 @@ class TarkovPedia::Scrapper
         url = GAMEPEDIA + name
         
         url_exist?(url)
+        
     end
 
     def self.url_exist?(url)
@@ -23,7 +24,13 @@ class TarkovPedia::Scrapper
 
     #new class method self.find_processes that looks through the scrapped page and returns a list of processes
     def self.find_processes
-        
+        list = @doc.css('#toc > ul').text.split(' ')
+        list.reject{|obj| obj.to_i > 0}
+    end
+
+    def self.find_results(process)
+        @doc
+        binding.pry
     end
 
 end

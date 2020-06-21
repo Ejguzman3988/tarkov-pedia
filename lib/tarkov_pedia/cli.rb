@@ -7,23 +7,31 @@ class TarkovPedia::CLI
     end
     
     def menu
-        
+        puts "------------------------------------------"
         interest = list_interests
+        puts "------------------------------------------"
         name = self.name?(interest)
+        puts "------------------------------------------"
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
         process = self.display_processes(pedia) 
+        puts "------------------------------------------"
         display_results(pedia, process)
+        puts "------------------------------------------"
         action?(pedia, process)
+        puts "------------------------------------------"
     end
 
     # returns - string (the interest without the s)
     def list_interests
         
         list = <<-DOC
-        What would you like to search for?
-        1. Items
-        2. Quests
-        DOC
+        
+1. Items
+2. Quests
+
+
+What would you like to search for?
+DOC
         
         puts list
         interest = gets.chomp.downcase #Items
@@ -46,7 +54,7 @@ class TarkovPedia::CLI
 
     def name?(type)
         
-        puts "What is the exact name of the #{type}?"
+        puts "\nWhat is the exact name of the #{type}?"
         
         name = gets.chomp
 
@@ -62,33 +70,40 @@ class TarkovPedia::CLI
     end
 
     def list_processes(pedia)
-        puts "\n\n What would you like to search for concerning #{pedia.name}?"
-        TarkovPedia::Pedia.list_processes.each_with_index do |process, i|
-            puts "#{i+1}. #{process} "
+        list = TarkovPedia::Pedia.list_processes
+        puts "\n"
+        list.each_with_index do |process, i|
+            if i == 0
+                puts "#{i+1}. Price \n#{i+2}. #{process}"
+
+            else
+                puts "#{i+2}. #{process} "
+            end
         end
+        puts "\n\nWhat would you like to search for concerning #{pedia.name}?"
+        list
     end
     
     def display_processes(pedia)
-        list_processes(pedia)
+        list = list_processes(pedia).collect{|process| process.downcase}
         process = gets.chomp.downcase
         
-        #while pedia.li
-        while process != 'description'
+        
+        while !list.include?(process)
             if process == 'price'
+                puts "------------------------------------------"
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process "
                 list_processes(pedia)
                 process = gets.chomp.downcase
             else
+                puts "------------------------------------------"
                 puts "\n\nPlease enter a valid process."
                 list_processes(pedia)
 
                 process = gets.chomp.downcase
             end
-            
-
         end
-        
-        process = process.delete_suffix('s')
+        process
     end
 
 
@@ -113,8 +128,11 @@ class TarkovPedia::CLI
         
         if action == 'back'
             process = self.display_processes(pedia) 
+            puts "------------------------------------------"
             display_results(pedia, process)
+            puts "------------------------------------------"
             action?(pedia, process)
+            puts "------------------------------------------"
 
         elsif action  == 'main'
             menu

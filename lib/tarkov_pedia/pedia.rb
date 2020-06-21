@@ -47,25 +47,16 @@ class TarkovPedia::Pedia
     end
 
     def grab_processes
-        @@processes << 'description'
-        @@processes << 'price'
+        # @@processes << 'description'
+        # @@processes << 'price'
         #TarkovPedia::Scrapper.find_processes -> List of processes
-        #TarkovPedia::Scrapper.find_processes.each{|process| @@processes << process}
+        TarkovPedia::Scrapper.find_processes.each{|process| @@processes << process}
 
     end
 
     def assign?(process)
         if @process.nil?
-            @process = <<-DOC
-        The results for #{self.interest} are below!
-        The #{process} for #{self.name} is: 
-    
-        Canned beef stew, commonly referred to as tushonka,
-        can be stored for years, thus rivaling condensed 
-        milk in importance as military and tourist food supply.
-
-            DOC
-            
+            TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
         else
             puts "Old Result"
             @process
