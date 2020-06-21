@@ -21,12 +21,12 @@ class TarkovPedia::CLI
             if interest == 'quests'
                 puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
                 puts list
-                interest = gets.chomp
+                interest = gets.chomp.downcase
                 
             else
                 puts " \n\n Please enter a valid search query: "
                 puts list
-                interest = gets.chomp
+                interest = gets.chomp.downcase
                 
             end
         end
@@ -45,7 +45,7 @@ class TarkovPedia::CLI
         while name != 'tushonka'
             puts "\n\nSorry we could not find your #{type}."
             puts "Check the name of the #{type} and try again: "
-            name = gets.chomp
+            name = gets.chomp.downcase
         end
         #Pedia.find_or_create_by_name(name)
         #Pedia.list_processes
@@ -53,21 +53,35 @@ class TarkovPedia::CLI
     end
 
     def list_process(type, name)
-
-        puts <<-Doc
-
-
-        #{type} found!
+        puts "#{type} found!"
+        list = <<-Doc
         What would you like to know about #{name}?
 
-        1. description (found on tarkov game pedia)
+        1. Description 
 
-        2. price (found on tarkov - market)
+        2. Price
 
         Doc
 
-        process = gets.chomp
+        puts list
+
+        process = gets.chomp.downcase
         #Pedia.find_data(process)
+
+        while process != 'description'
+            if process == 'price'
+                puts "\n\nFunctionality not supported yet.\nPlease enter another process "
+                puts list
+                process = gets.chomp.downcase\
+            else
+                puts "\n\nPlease enter a valid process."
+                puts list
+
+                process = gets.chomp.downcase
+            end
+            
+
+        end
     end
 
     def results
@@ -85,7 +99,7 @@ class TarkovPedia::CLI
 
         DOC
 
-        action = gets.chomp
+        action = gets.chomp.downcase
         #Pedia.exit_back(action)
     end
 
