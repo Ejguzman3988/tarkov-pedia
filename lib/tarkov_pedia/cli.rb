@@ -49,19 +49,16 @@ class TarkovPedia::CLI
         end
         #Pedia.find_or_create_by_name(name)
         #Pedia.list_processes
+        name
     end
 
-    def menu
-        
-        #action = Pedia.new(interest)
-        interest = list_interests
-        self.name?(interest)
+    def list_process(type, name)
 
         puts <<-Doc
 
 
-        #{interest} found!
-        What would you like to know about the #{interest}?
+        #{type} found!
+        What would you like to know about #{name}?
 
         1. description (found on tarkov game pedia)
 
@@ -71,6 +68,15 @@ class TarkovPedia::CLI
 
         process = gets.chomp
         #Pedia.find_data(process)
+    end
+
+    def menu
+        
+        #action = Pedia.new(interest)
+        interest = list_interests
+        name = self.name?(interest)
+        list_process(interest, name)
+        
 
         puts <<-DOC
         
