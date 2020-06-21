@@ -135,6 +135,7 @@ DOC
             puts "------------------------------------------"
 
         elsif action  == 'main'
+            TarkovPedia::Pedia.clear_processes
             menu
         elsif action == 'exit'
             puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."

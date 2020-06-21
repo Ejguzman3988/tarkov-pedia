@@ -31,10 +31,11 @@ class TarkovPedia::Scrapper
     def self.find_results(process)
         proper_process = process.capitalize()
         processes = TarkovPedia::Pedia.list_processes
-        index = processes.find_index(process.capitalize) #index of the process
+        index = processes.find_index(proper_process) #index of the process
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
-        
-        while index > 0
+        counter = 0
+        while index != 1
+            
             if !(start_element.text.include?('[edit | edit source]'))
                 start_element = start_element.next_element
             else  

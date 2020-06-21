@@ -66,5 +66,9 @@ class TarkovPedia::Pedia
         end
     end
 
+    def self.clear_processes
+        @@processes.clear()
+    end
+
 
 end
