@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["ejguzman3988"]
   spec.email         = ["eriberto176@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{CLI that will give information on various Escape from Tarkov game elements.}
+  spec.description   = %q{I will write a longer description here later}
   spec.homepage      = "https://github.com/Ejguzman3988/tarkov-pedia"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/Ejguzman3988/tarkov-pedia."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["changelog_uri"] = "https://github.com/Ejguzman3988/tarkov-pedia/blob/master/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

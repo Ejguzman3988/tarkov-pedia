@@ -36,12 +36,13 @@ class TarkovPedia::Pedia
     end
 
     def self.find_or_create_by_interest_name(interest, name)
-        binding.pry 
         obj = self.find_by_interest_name(interest, name)
         if obj.nil?
             obj = self.new(interest, name)
-            self.class.save
         end
+
+        obj.interest = interest
+        obj.name = name
 
         obj
         

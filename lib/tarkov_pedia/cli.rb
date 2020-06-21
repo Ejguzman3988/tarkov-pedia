@@ -12,7 +12,8 @@ class TarkovPedia::CLI
         name = self.name?(interest)
         process = self.list_processes(interest, name)
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name)
-        
+        pedia.process = process
+
         display_results(pedia)
 
         action?(pedia)
@@ -92,6 +93,7 @@ class TarkovPedia::CLI
             
 
         end
+        process = process.delete_suffix('s')
     end
 
 
@@ -135,5 +137,6 @@ class TarkovPedia::CLI
         process = pedia.process
         
         puts pedia.results(interest, name, process)
+        process
     end
 end
