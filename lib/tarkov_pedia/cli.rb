@@ -84,20 +84,12 @@ class TarkovPedia::CLI
         end
     end
 
-    def results(interest, name, process)
-        puts <<-DOC
-        The results for #{interest} are below:
-        The #{process} for #{name}: 
 
-        Canned beef stew, commonly referred to as tushonka,
-        can be stored for years, thus rivaling condensed 
-        milk in importance as military and tourist food supply.
-
-        DOC
-
-    end
-
-    def action?(interest, name)
+    def action?(pedia)
+        interest = pedia.interest
+        name = pedia.name
+        process = pedia.process
+        
         list = <<-DOC
         
         1. To go back type 'back'
@@ -113,8 +105,8 @@ class TarkovPedia::CLI
         
         if action == 'back'
             process = list_processes(interest, name)
-            results(interest, name, process)
-            action?(interest,name)
+            pedia.results(interest, name, process)
+            action?(pedia)
 
         elsif action  == 'main'
             menu
@@ -124,7 +116,7 @@ class TarkovPedia::CLI
             sleep(3)
         else
             puts "Action not recognize, please try again."
-            action?(interest,name)
+            action?(pedia)
         end
     end
 
@@ -133,10 +125,10 @@ class TarkovPedia::CLI
         interest = list_interests
         name = self.name?(interest)
         process = self.list_processes(interest, name)
-        action = Pedia.new(interest, name, process)
+        pedia = Pedia.new(interest, name, process)
         
-        results(interest, name, process)
+        pedia.results(interest, name, process)
 
-        action?(interest, name)
+        action?(pedia)
     end
 end

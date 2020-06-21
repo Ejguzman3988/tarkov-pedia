@@ -9,4 +9,17 @@ class Pedia
         @process = process
 
     end
+    
+    def results(interest, name, process)
+        puts <<-DOC
+        The results for #{interest} are below:
+        The #{process} for #{name}: 
+
+        Canned beef stew, commonly referred to as tushonka,
+        can be stored for years, thus rivaling condensed 
+        milk in importance as military and tourist food supply.
+
+        DOC
+
+    end
 end
