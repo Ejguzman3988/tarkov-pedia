@@ -41,6 +41,8 @@ class TarkovPedia::CLI
         1. Would you like to search something else?
 
         2. Back to main menu
+        
+        3. exit
 
         DOC
 
