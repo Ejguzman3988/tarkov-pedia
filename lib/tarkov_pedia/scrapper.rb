@@ -5,8 +5,10 @@ class TarkovPedia::Scrapper
     attr_accessor :doc, :html
 
     def self.exist?(name)
-        name = name.capitalize().tr(" ", "_")
+    
 
+        name = name.capitalize() if !(name =~ /[A-Z]{2}/)
+        name = name.tr(" ", "_")
         url = GAMEPEDIA + name
         
         url_exist?(url)
