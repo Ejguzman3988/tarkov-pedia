@@ -70,14 +70,7 @@ class TarkovPedia::CLI
         #Pedia.find_data(process)
     end
 
-    def menu
-        
-        #action = Pedia.new(interest)
-        interest = list_interests
-        name = self.name?(interest)
-        list_process(interest, name)
-        
-
+    def results
         puts <<-DOC
         
         Canned beef stew, commonly referred to as tushonka,
@@ -94,8 +87,15 @@ class TarkovPedia::CLI
 
         action = gets.chomp
         #Pedia.exit_back(action)
-        
+    end
 
+    def menu
+        
+        #action = Pedia.new(interest)
+        interest = list_interests
+        name = self.name?(interest)
+        self.list_process(interest, name)
+        self.results
 
     end
 end
