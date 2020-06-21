@@ -1,4 +1,4 @@
-class TarkovPedia::Pedia
+class TarkovPedia::Pedia 
 
     attr_accessor :interest, :name, :process
     @@all = []
@@ -31,16 +31,16 @@ class TarkovPedia::Pedia
     end
 
     #find takes argument of a bool, pedia object.
-    def find_by_interest_name(interest, name)
+    def self.find_by_interest_name(interest, name)
         self.all.find{|pedia| pedia.name == name}
     end
 
-    def find_or_create_by_interest_name(interest, name)
-        
-        obj = self.find_by_name(name)
+    def self.find_or_create_by_interest_name(interest, name)
+        binding.pry 
+        obj = self.find_by_interest_name(interest, name)
         if obj.nil?
-            obj = self.new(name)
-            save
+            obj = self.new(interest, name)
+            self.class.save
         end
 
         obj

@@ -1,4 +1,4 @@
-class TarkovPedia::CLI
+class TarkovPedia::CLI 
 
     def call
         
@@ -11,7 +11,7 @@ class TarkovPedia::CLI
         interest = list_interests
         name = self.name?(interest)
         process = self.list_processes(interest, name)
-        pedia = TarkovPedia::Pedia.new(interest, name)
+        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name)
         
         display_results(pedia)
 
