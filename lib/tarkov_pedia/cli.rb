@@ -130,11 +130,13 @@ class TarkovPedia::CLI
 
     def menu
         
-        #action = Pedia.new(interest)
         interest = list_interests
         name = self.name?(interest)
         process = self.list_processes(interest, name)
+        action = Pedia.new(interest, name, process)
+        
         results(interest, name, process)
+
         action?(interest, name)
     end
 end
