@@ -97,3 +97,20 @@ Person chooses what to do after they get their results
 
 Need to fix Flow Chart!
 
+
+To Do Next:
+
+Create functionalityof the pedia class
+
+When a new pedia class is created.
+
+Check if the pedia exists already. 
+    then delete or pull data
+Store data from scrapper.
+
+Gives specified data to cli.
+
+Pedia has a interest
+pedia has a name
+pedia has a process
+
