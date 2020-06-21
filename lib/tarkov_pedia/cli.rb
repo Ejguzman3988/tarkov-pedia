@@ -45,7 +45,6 @@ class TarkovPedia::CLI
         DOC
 
         action = gets.chomp
-
         #Pedia.exit_back(action)
         
 
