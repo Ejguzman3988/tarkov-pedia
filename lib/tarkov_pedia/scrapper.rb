@@ -21,4 +21,9 @@ class TarkovPedia::Scrapper
         end
     end
 
+    #new class method self.find_processes that looks through the scrapped page and returns a list of processes
+    def self.find_processes
+        
+    end
+
 end

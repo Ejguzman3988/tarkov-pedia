@@ -49,6 +49,8 @@ class TarkovPedia::Pedia
     def grab_processes
         @@processes << 'description'
         @@processes << 'price'
+        #TarkovPedia::Scrapper.find_processes -> List of processes
+        #TarkovPedia::Scrapper.find_processes.each{|process| @@processes << process}
 
     end
 
