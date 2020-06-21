@@ -6,16 +6,30 @@ class TarkovPedia::CLI
         
     end
 
-    # returns - Users Interest type
+    # returns - string (the interest without the s)
     def list_interests
         #Eventually I want to add more search types, for now I will work with Items only
         # Consider : Changing the name of variables from interest to type later
-        puts <<-DOC
+        list = <<-DOC
         What would you like to search for?
         1. Items
         2. Quests
         DOC
+        puts list
         interest = gets.chomp.downcase #Items
+        while interest != 'items'
+            if interest == 'quests'
+                puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
+                puts list
+                interest = gets.chomp
+                
+            else
+                puts " \n\n Please enter a valid search query: "
+                puts list
+                interest = gets.chomp
+                
+            end
+        end
         type = interest.delete_suffix('s')
     end
 
@@ -24,7 +38,7 @@ class TarkovPedia::CLI
         
         puts "What is the exact name of the #{type}?"
         
-        name = gets.chomp
+        name = gets.chomp.downcase
 
 
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
@@ -41,23 +55,13 @@ class TarkovPedia::CLI
         
         #action = Pedia.new(interest)
         interest = list_interests
-        while interest != 'items'
-            if interest == 'quests'
-                puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
-                interest = list_interests
-            else
-                puts " \n\n Please enter a valid search query: "
-                interest = list_interests
-            end
-        end
-
-        self.name?(type)
+        self.name?(interest)
 
         puts <<-Doc
 
 
-        #{type} found!
-        What would you like to know about the #{type}?
+        #{interest} found!
+        What would you like to know about the #{interest}?
 
         1. description (found on tarkov game pedia)
 
