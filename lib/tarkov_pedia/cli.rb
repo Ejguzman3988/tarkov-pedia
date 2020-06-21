@@ -11,7 +11,7 @@ class TarkovPedia::CLI
         interest = list_interests
         name = self.name?(interest)
         process = self.list_processes(interest, name)
-        pedia = TarkovPedia::Pedia.new(interest, name, process)
+        pedia = TarkovPedia::Pedia.new(interest, name)
         
         display_results(pedia)
 
@@ -82,7 +82,7 @@ class TarkovPedia::CLI
             if process == 'price'
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process "
                 puts list
-                process = gets.chomp.downcase\
+                process = gets.chomp.downcase
             else
                 puts "\n\nPlease enter a valid process."
                 puts list
