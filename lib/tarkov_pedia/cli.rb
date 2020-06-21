@@ -10,8 +10,8 @@ class TarkovPedia::CLI
         
         interest = list_interests
         name = self.name?(interest)
-        process = self.list_processes(interest, name) 
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
+        process = self.list_processes(interest, name) 
         pedia.process = process #assigns the process to pedia
 
         display_results(pedia)
@@ -21,13 +21,13 @@ class TarkovPedia::CLI
 
     # returns - string (the interest without the s)
     def list_interests
-        #Eventually I want to add more search types, for now I will work with Items only
-        # Consider : Changing the name of variables from interest to type later
+        #list_interest(pedia) -- puts pedia.list_processes 
         list = <<-DOC
         What would you like to search for?
         1. Items
         2. Quests
         DOC
+        
         puts list
         interest = gets.chomp.downcase #Items
         while interest != 'items'
