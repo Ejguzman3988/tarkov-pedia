@@ -64,7 +64,6 @@ What else would you like to do?
 
 Canned beef stew, commonly referred to as tushonka, can be stored for years, thus rivaling condensed milk in importance as military and tourist food supply.
 
-interest has a type - quest, item, etc.
-interest has a name - name of the type 
-interest has a process - description, price, etc.
+
+
 
