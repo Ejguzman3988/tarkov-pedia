@@ -6,15 +6,22 @@ class TarkovPedia::CLI
         
     end
 
-    def menu
+    def list_interests
         puts <<-DOC
         What would you like to search for?
         1. Items
         2. Quests
         DOC
+        interest = gets.chomp.downcase #Items
+    end
 
-        interest = gets.chomp.downcase
+    def menu
+        interest = list_interests
         #action = Pedia.new(interest)
+        if interest == 'quests'
+            puts "Funtionality not supported yet. Pick another function"
+            list_interests
+        end
         
         puts "What is the exact name of the #{interest.delete_suffix('s')}?"
         

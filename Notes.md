@@ -69,4 +69,29 @@ Canned beef stew, commonly referred to as tushonka, can be stored for years, thu
 2. Back to main menu
 
 
+Person puts in what type of search they want
+Person puts in the name of what they want to search
+
+-- Program should check if the name is available -- 
+
+This would require me to scrape a site. 
+Currently with my Diagram, I do not do this.
+
+Future reference, I need to change diagram and add functionality
+
+--TO DO Later-- 
+
+
+
+Person puts in what type of search they want - Items
+--Create a loop until they pick the right menu item
+
+Person puts in the name of what they want to search - Tushonka
+--Create a loop until they search for a proper item
+
+Person puts in process
+--Create a loop until they pick the right process
+
+Person chooses what to do after they get their results
+--Creates a loop until they exit
 
