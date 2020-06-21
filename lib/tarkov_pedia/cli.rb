@@ -52,7 +52,7 @@ class TarkovPedia::CLI
         name
     end
 
-    def list_process(type, name)
+    def list_processes(type, name)
         puts "#{type} found!"
         list = <<-Doc
         What would you like to know about #{name}?
@@ -84,23 +84,48 @@ class TarkovPedia::CLI
         end
     end
 
-    def results
+    def results(interest, name, process)
         puts <<-DOC
-        
+        The results for #{interest} are below:
+        The #{process} for #{name}: 
+
         Canned beef stew, commonly referred to as tushonka,
         can be stored for years, thus rivaling condensed 
         milk in importance as military and tourist food supply.
 
-        1. Would you like to search something else?
-
-        2. Back to main menu
-        
-        3. exit
-
         DOC
 
+    end
+
+    def action?(interest, name)
+        list = <<-DOC
+        
+        1. To go back type 'back'
+
+        2. To go to main menu type 'main'
+        
+        3. To exit type 'exit'
+        
+        DOC
+
+        puts list
         action = gets.chomp.downcase
-        #Pedia.exit_back(action)
+        
+        if action == 'back'
+            process = list_processes(interest, name)
+            results(interest, name, process)
+            action?(interest,name)
+
+        elsif action  == 'main'
+            menu
+        elsif action == 'exit'
+            puts "Thank you for using this product."
+            puts "Goodbye!"
+            sleep(3)
+        else
+            puts "Action not recognize, please try again."
+            action?(interest,name)
+        end
     end
 
     def menu
@@ -108,8 +133,13 @@ class TarkovPedia::CLI
         #action = Pedia.new(interest)
         interest = list_interests
         name = self.name?(interest)
-        self.list_process(interest, name)
-        self.results
+        process = self.list_processes(interest, name)
+        results(interest, name, process)
+        action?(interest, name)
+
+
+       
+        
 
     end
 end
