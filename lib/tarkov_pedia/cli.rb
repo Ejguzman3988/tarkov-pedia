@@ -6,7 +6,7 @@ class TarkovPedia::CLI
         
     end
 
-    # returns - Users Interest
+    # returns - Users Interest type
     def list_interests
         #Eventually I want to add more search types, for now I will work with Items only
         # Consider : Changing the name of variables from interest to type later
@@ -16,6 +16,25 @@ class TarkovPedia::CLI
         2. Quests
         DOC
         interest = gets.chomp.downcase #Items
+        type = interest.delete_suffix('s')
+    end
+
+
+    def name?(type)
+        
+        puts "What is the exact name of the #{type}?"
+        
+        name = gets.chomp
+
+
+        #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
+        while name != 'tushonka'
+            puts "\n\nSorry we could not find your #{type}."
+            puts "Check the name of the #{type} and try again: "
+            name = gets.chomp
+        end
+        #Pedia.find_or_create_by_name(name)
+        #Pedia.list_processes
     end
 
     def menu
@@ -32,25 +51,13 @@ class TarkovPedia::CLI
             end
         end
 
-        type = interest.delete_suffix('s')
-        puts "What is the exact name of the #{type}?"
-        
-        name = gets.chomp
-
-
-        #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
-        while name != 'tushonka'
-            puts "\n\nSorry we could not find your #{type}."
-            puts "Check the name of the #{type} and try again: "
-            name = gets.chomp
-        end
-        #Pedia.find_or_create_by_name(name)
-        #Pedia.list_processes
+        self.name?(type)
 
         puts <<-Doc
 
 
         #{type} found!
+        What would you like to know about the #{type}?
 
         1. description (found on tarkov game pedia)
 
