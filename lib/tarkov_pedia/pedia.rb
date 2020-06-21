@@ -2,10 +2,12 @@ class TarkovPedia::Pedia
 
     attr_accessor :interest, :name, :process
     @@all = []
+    @@processes = ''
     def initialize(interest, name)
 
         @interest = interest
         @name = name
+        grab_processes
         save
     end
 
@@ -17,17 +19,9 @@ class TarkovPedia::Pedia
         @@all
     end
 
-    def results(interest, name, process)
-        result = <<-DOC
-        The results for #{interest} are below:
-        The #{process} for #{name}: 
+    def results
 
-        Canned beef stew, commonly referred to as tushonka,
-        can be stored for years, thus rivaling condensed 
-        milk in importance as military and tourist food supply.
-
-        DOC
-
+        self.process
     end
 
     #find takes argument of a bool, pedia object.
@@ -46,6 +40,40 @@ class TarkovPedia::Pedia
 
         obj
         
+    end
+
+    def self.list_processes
+        @@processes
+    end
+
+    def grab_processes
+        list = <<-Doc
+        What would you like to know about #{@name}?
+
+        1. Description 
+
+        2. Price
+
+        Doc
+        @@processes = list
+    end
+
+    def assign?(process)
+        if @process.nil?
+            @process = <<-DOC
+        The results for #{self.interest} are below!
+        The #{process} for #{self.name} is: 
+    
+        Canned beef stew, commonly referred to as tushonka,
+        can be stored for years, thus rivaling condensed 
+        milk in importance as military and tourist food supply.
+
+            DOC
+            
+        else
+            puts "Old Result"
+            @process
+        end
     end
 
 

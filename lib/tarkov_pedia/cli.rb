@@ -11,17 +11,14 @@ class TarkovPedia::CLI
         interest = list_interests
         name = self.name?(interest)
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
-        process = self.list_processes(interest, name) 
-        pedia.process = process #assigns the process to pedia
-
-        display_results(pedia)
-
-        action?(pedia)
+        process = self.list_processes(pedia) 
+        display_results(pedia, process)
+        action?(pedia, process)
     end
 
     # returns - string (the interest without the s)
     def list_interests
-        #list_interest(pedia) -- puts pedia.list_processes 
+        
         list = <<-DOC
         What would you like to search for?
         1. Items
@@ -63,21 +60,12 @@ class TarkovPedia::CLI
         name
     end
 
-    def list_processes(type, name)
-        puts "#{type} found!"
-        list = <<-Doc
-        What would you like to know about #{name}?
+    def list_processes(pedia)
 
-        1. Description 
-
-        2. Price
-
-        Doc
-
-        puts list
+        puts TarkovPedia::Pedia.list_processes
 
         process = gets.chomp.downcase
-        #Pedia.find_data(process)
+        
 
         while process != 'description'
             if process == 'price'
@@ -93,11 +81,14 @@ class TarkovPedia::CLI
             
 
         end
+        
         process = process.delete_suffix('s')
     end
 
 
-    def action?(pedia)
+    def action?(pedia,process)
+        
+        
         list = <<-DOC
         
         1. To go back type 'back'
@@ -116,8 +107,7 @@ class TarkovPedia::CLI
         
         if action == 'back'
             process = list_processes(interest, name)
-            pedia.results(interest, name, process)
-            action?(pedia)
+            action?(pedia, process)
 
         elsif action  == 'main'
             menu
@@ -128,16 +118,14 @@ class TarkovPedia::CLI
             sleep(3)
         else
             puts "Action not recognize, please try again."
-            action?(pedia)
+            action?(pedia, process)
         end
     end
 
-    def display_results(pedia)
+    def display_results(pedia, process)
         interest = pedia.interest
         name = pedia.name
-        process = pedia.process
-        
-        puts pedia.results(interest, name, process)
-        process
+        pedia.assign?(process)
+        puts pedia.results
     end
 end
