@@ -42,16 +42,17 @@ class TarkovPedia::Scrapper
     def self.find_processes
           
             
-        list = @doc.css('#toc > ul').text.split("\n").join().split(/(\d+) /)
+        list = @doc.css('#toc > ul').text.downcase.split("\n").join().split(/(\d+) /)
         list = list.reject{|obj| obj.to_i > 0}
         list.reject{|obj| obj == ''}
         
     end
 
     def self.find_results(process)
-        proper_process = process.capitalize()
+     
+        
         processes = TarkovPedia::Pedia.list_processes
-        index = processes.find_index(proper_process)+1 #index of the process
+        index = processes.find_index(process)+1 #index of the process
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         
         
@@ -83,6 +84,7 @@ class TarkovPedia::Scrapper
                 break
             end
         end
+       
         results
     end
 

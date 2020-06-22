@@ -21,7 +21,7 @@ class TarkovPedia::Pedia
 
     def results(process)
 
-        @@processes[process.capitalize]
+        @@processes[process]
     end
 
     #find takes argument of a bool, pedia object.
@@ -57,7 +57,6 @@ class TarkovPedia::Pedia
     end
 
     def assign?(process)
-        process = process.capitalize
         if @@processes[process] == nil
             @@processes[process] = TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
         else
