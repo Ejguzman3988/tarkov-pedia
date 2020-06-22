@@ -40,8 +40,12 @@ class TarkovPedia::Scrapper
 
     #new class method self.find_processes that looks through the scrapped page and returns a list of processes
     def self.find_processes
-        list = @doc.css('#toc > ul').text.split(' ')
-        list.reject{|obj| obj.to_i > 0}
+          
+            
+        list = @doc.css('#toc > ul').text.split("\n").join().split(/(\d+) /)
+        list = list.reject{|obj| obj.to_i > 0}
+        list.reject{|obj| obj == ''}
+        
     end
 
     def self.find_results(process)
@@ -63,17 +67,6 @@ class TarkovPedia::Scrapper
             end  
         end
         
-
-        
-        # while index >= 1
-            
-        #     if !(start_element.text.include?('[edit | edit source]'))
-        #         start_element = start_element.next_element
-        #     else  
-        #         start_element = start_element.next_element
-        #         index = index - 1
-        #     end  
-        # end
         results = ''
        
         while !(start_element.text.include?('[edit | edit source]'))

@@ -18,6 +18,7 @@ class TarkovPedia::CLI
         display_results(pedia, process)
         puts "------------------------------------------"
         action?(pedia, process)
+        puts "------------------------------------------"
         
     end
 
@@ -141,7 +142,6 @@ DOC
             puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."
             puts "Thank you for using this product."
             puts "Goodbye!"
-            puts "------------------------------------------"
             sleep(3)
         else
             puts "Action not recognize, please try again."
