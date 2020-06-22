@@ -7,7 +7,6 @@ Gem::Specification.new do |spec|
   spec.email         = ["eriberto176@gmail.com"]
 
   spec.summary       = %q{CLI that will give information on various Escape from Tarkov game elements.}
-  spec.description   = %q{I will write a longer description here later}
   spec.homepage      = "https://github.com/Ejguzman3988/tarkov-pedia"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")

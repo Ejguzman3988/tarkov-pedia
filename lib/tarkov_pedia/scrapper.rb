@@ -7,10 +7,10 @@ class TarkovPedia::Scrapper
     def self.exist?(name)
     
 
-        name = name.capitalize! if !(name =~ /[A-Z]{2}/) #Fixes issue with having more than 2 capitalization
+        name = name.capitalize if !(name =~ /[A-Z]{2}/) #Fixes issue with having more than 2 capitalization
         
         #Fixes issue with numbers in the middle of a string, prompting the need to capitalize the next word.
-        name = name.split(/(\d+) /) if !(name.split(/(\d+)/).nil?) 
+        name = name.split(/(\d+) /) if !(name.split(/(\d+) /).nil?) 
         name.each_with_index do |part, index|
             if (part.to_i > 0 && index != name.length)
                 name[index+1] = name[index+1].capitalize
@@ -33,7 +33,7 @@ class TarkovPedia::Scrapper
             @doc = Nokogiri::HTML(@html)
             
         rescue => exception
-            puts url
+            
             false
         end
     end

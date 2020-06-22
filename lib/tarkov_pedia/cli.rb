@@ -7,9 +7,15 @@ class TarkovPedia::CLI
     end
     
     def menu
+        puts <<-DOC
+Welcome to your Escape from Tarkov gamepedia. 
+All the information used on this program was derived from:
+https://escapefromtarkov.gamepedia.com/
+DOC
         puts "------------------------------------------"
-        interest = list_interests
-        puts "------------------------------------------"
+        # interest = list_interests
+        # puts "------------------------------------------"
+        interest = "item"
         name = self.name?(interest)
         puts "------------------------------------------"
         pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
@@ -23,45 +29,52 @@ class TarkovPedia::CLI
     end
 
     # returns - string (the interest without the s)
-    def list_interests
+    # def list_interests
         
-        list = <<-DOC
-        
-1. Items
-2. Quests
+#         list = <<-DOC
+# Welcome to your Escape from Tarkov gamepedia. 
+# All information used on this program was derived from:
+# https://escapefromtarkov.gamepedia.com/
 
 
-What would you like to search for?
-DOC
+
+# DOC
+# # 1. Items
+# # 2. Quests
+
+
+# # What would you like to search for?
+# # DOC
         
-        puts list
-        interest = gets.chomp.downcase #Items
-        while interest != 'items'
-            if interest == 'quests'
-                puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
-                puts list
-                interest = gets.chomp.downcase
+#         puts list
+#         interest = gets.chomp.downcase #Items
+#         while interest != 'items'
+#             if interest == 'quests'
+#                 puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
+#                 puts list
+#                 interest = gets.chomp.downcase
                 
-            else
-                puts " \n\n Please enter a valid search query: "
-                puts list
-                interest = gets.chomp.downcase
+#             else
+#                 puts " \n\n Please enter a valid search query: "
+#                 puts list
+#                 interest = gets.chomp.downcase
                 
-            end
-        end
-        type = interest.delete_suffix('s')
-    end
+#             end
+#         end
+#         type = interest.delete_suffix('s')
+#     end
 
 
     def name?(type)
         
-        puts "\nWhat is the exact name of the #{type}?"
+        puts "\nWhat is the exact name of the item you are interested in today?"
         
         name = gets.chomp
 
 
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
         while !TarkovPedia::Scrapper.exist?(name)
+            puts "------------------------------------------"
             puts "\n\nSorry we could not find your #{type}."
             puts "Check the name of the #{type} and try again: "
             name = gets.chomp
