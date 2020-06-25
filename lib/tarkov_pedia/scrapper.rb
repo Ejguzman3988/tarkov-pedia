@@ -6,12 +6,16 @@ class TarkovPedia::Scrapper
 
     def self.exist?(name)
     
-
+        #ENCAPSULATE INTO ITS ON FUNCTION CALLED CASES
         name = name.capitalize if !(name =~ /[A-Z]{2}/) #Fixes issue with having more than 2 capitalization
         
         #Fixes issue with numbers in the middle of a string, prompting the need to capitalize the next word.
-        name = name.split(/(\d+) /) if !(name.split(/(\d+) /).nil?) 
+        name = name.split(/(\d+) /) if !(name.split(/(\d+) /).nil?) #checks if string contains a number
+        
+        
         name.each_with_index do |part, index|
+            
+            #capitalizes the word after the number
             if (part.to_i > 0 && index != name.length)
                 name[index+1] = name[index+1].capitalize
                 name[index] = name[index] + " "

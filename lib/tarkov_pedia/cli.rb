@@ -1,69 +1,61 @@
 class TarkovPedia::CLI 
 
     def call
-        
-       menu
+        #greets User
+        greeting
+        #Displays Menu
+        menu
         
     end
     
-    def menu
+    #greets User
+    def greeting
         puts <<-DOC
-Welcome to your Escape from Tarkov gamepedia. 
-All the information used on this program was derived from:
-https://escapefromtarkov.gamepedia.com/
-DOC
-        puts "------------------------------------------"
-        # interest = list_interests
-        # puts "------------------------------------------"
-        interest = "item"
-        name = self.name?(interest)
-        puts "------------------------------------------"
-        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
-        process = self.display_processes(pedia) 
-        puts "------------------------------------------"
-        display_results(pedia, process)
-        puts "------------------------------------------"
-        action?(pedia, process)
-        puts "------------------------------------------"
-        
+        Welcome to your Escape from Tarkov gamepedia. 
+        All information used on this program was derived from:
+        https://escapefromtarkov.gamepedia.com/
+        https://tarkov-market.com/
+
+
+        DOC
     end
 
     # returns - string (the interest without the s)
-    # def list_interests
+    def list_interests
         
-#         list = <<-DOC
-# Welcome to your Escape from Tarkov gamepedia. 
-# All information used on this program was derived from:
-# https://escapefromtarkov.gamepedia.com/
+        list = <<-DOC
 
 
 
-# DOC
-# # 1. Items
-# # 2. Quests
+        1. Items
+        2. Quests
 
 
-# # What would you like to search for?
-# # DOC
+        What would you like to search for?
+        DOC
         
-#         puts list
-#         interest = gets.chomp.downcase #Items
-#         while interest != 'items'
-#             if interest == 'quests'
-#                 puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
-#                 puts list
-#                 interest = gets.chomp.downcase
-                
-#             else
-#                 puts " \n\n Please enter a valid search query: "
-#                 puts list
-#                 interest = gets.chomp.downcase
-                
-#             end
-#         end
-#         type = interest.delete_suffix('s')
-#     end
+        puts list
+        interest = gets.chomp.downcase #Items
+        
+        #Checks input from user
 
+        while interest != 'items'
+            if interest == 'quests'
+                system('clear')
+                puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
+                puts list
+                interest = gets.chomp.downcase
+                
+            else
+                system('clear')
+                puts " \n\n Please enter a valid search query: "
+                puts list
+                interest = gets.chomp.downcase
+                
+            end
+        end
+        type = interest.delete_suffix('s')
+    end
 
     def name?(type)
         
@@ -167,5 +159,39 @@ DOC
         name = pedia.name
         pedia.assign?(process)
         puts pedia.results(process)
+    end
+
+    #Handles user Inputs
+    def menu
+        system('clear')
+        puts "------------------------------------------"
+        
+        
+        #displays list of possible interest (items, quests, etc)
+        interest = list_interests
+        system('clear')
+        
+        
+        #Asks user for the name of their interest
+        name = self.name?(interest)
+        system('clear')
+        
+        
+        
+        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
+        process = self.display_processes(pedia) 
+        
+        
+        
+        puts "------------------------------------------"
+        display_results(pedia, process)
+        
+        
+        puts "------------------------------------------"
+        
+        
+        action?(pedia, process)
+        puts "------------------------------------------"
+        
     end
 end

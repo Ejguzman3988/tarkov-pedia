@@ -3,6 +3,7 @@ class TarkovPedia::Pedia
     attr_accessor :interest, :name, :process
     @@all = []
     @@processes = {}
+    
     def initialize(interest, name)
 
         @interest = interest
