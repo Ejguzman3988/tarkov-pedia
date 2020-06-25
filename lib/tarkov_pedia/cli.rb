@@ -1,6 +1,7 @@
 class TarkovPedia::CLI 
 
     def call
+        system('clear')
         #greets User
         greeting
         #Displays Menu
@@ -18,6 +19,39 @@ class TarkovPedia::CLI
 
 
         DOC
+    end  
+
+    #Handles user Inputs
+    def menu
+        puts "------------------------------------------"
+        
+        
+        #displays list of possible interest (items, quests, etc)
+        interest = list_interests
+        system('clear')
+        
+        
+        #Asks user for the name of their interest
+        name = self.name?(interest)
+        system('clear')
+        
+        
+        
+        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
+        process = self.display_processes(pedia) 
+        
+        
+        
+        puts "------------------------------------------"
+        display_results(pedia, process)
+        
+        
+        puts "------------------------------------------"
+        
+        
+        action?(pedia, process)
+        puts "------------------------------------------"
+        
     end
 
     # returns - string (the interest without the s)
@@ -59,7 +93,7 @@ class TarkovPedia::CLI
 
     def name?(type)
         
-        puts "\nWhat is the exact name of the item you are interested in today?"
+        puts "\nWhat is the exact name of the #{type} you are interested in today?"
         
         name = gets.chomp
 
@@ -78,10 +112,11 @@ class TarkovPedia::CLI
     def list_processes(pedia)
         list = TarkovPedia::Pedia.list_processes
         puts "\n"
+        
+        #lists processes starting with price. (Price isn't in GAME PEDIA)
         list.each_with_index do |process, i|
             if i == 0
                 puts "#{i+1}. Price \n#{i+2}. #{process}"
-
             else
                 puts "#{i+2}. #{process} "
             end
@@ -141,7 +176,6 @@ class TarkovPedia::CLI
             puts "------------------------------------------"
 
         elsif action  == 'main'
-            TarkovPedia::Pedia.clear_processes
             menu
         elsif action == 'exit'
             puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."
@@ -159,39 +193,5 @@ class TarkovPedia::CLI
         name = pedia.name
         pedia.assign?(process)
         puts pedia.results(process)
-    end
-
-    #Handles user Inputs
-    def menu
-        system('clear')
-        puts "------------------------------------------"
-        
-        
-        #displays list of possible interest (items, quests, etc)
-        interest = list_interests
-        system('clear')
-        
-        
-        #Asks user for the name of their interest
-        name = self.name?(interest)
-        system('clear')
-        
-        
-        
-        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
-        process = self.display_processes(pedia) 
-        
-        
-        
-        puts "------------------------------------------"
-        display_results(pedia, process)
-        
-        
-        puts "------------------------------------------"
-        
-        
-        action?(pedia, process)
-        puts "------------------------------------------"
-        
     end
 end

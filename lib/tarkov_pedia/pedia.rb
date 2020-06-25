@@ -14,6 +14,7 @@ class TarkovPedia::Pedia
 
     def save
         @@all << self
+        
     end
     
     def self.all
@@ -65,10 +66,4 @@ class TarkovPedia::Pedia
             @@processes[process]
         end
     end
-
-    def self.clear_processes
-        @@processes.clear()
-    end
-
-
 end
