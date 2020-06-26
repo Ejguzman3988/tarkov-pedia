@@ -11,7 +11,7 @@ class TarkovPedia::CLI
     
     #greets User
     def greeting
-        puts <<-DOC
+        puts <<-DOC.gsub /^\s*/, ''
         Welcome to your Escape from Tarkov gamepedia. 
         All information used on this program was derived from:
         https://escapefromtarkov.gamepedia.com/
@@ -19,6 +19,7 @@ class TarkovPedia::CLI
 
 
         DOC
+
     end  
 
     #Handles user Inputs
@@ -42,10 +43,10 @@ class TarkovPedia::CLI
         
         
         
+        system('clear')
+        puts"The #{process} of your #{interest} search, #{name}: "
         puts "------------------------------------------"
         display_results(pedia, process)
-        
-        
         puts "------------------------------------------"
         
         
@@ -57,18 +58,13 @@ class TarkovPedia::CLI
     # returns - string (the interest without the s)
     def list_interests
         
-        list = <<-DOC
-
-
-
+        list = <<-DOC.gsub /^\s*/, ''
         1. Items
         2. Quests
-
-
-        What would you like to search for?
         DOC
         
         puts list
+        puts "\n\nWhat would you like to search for?"
         interest = gets.chomp.downcase #Items
         
         #Checks input from user
@@ -100,9 +96,11 @@ class TarkovPedia::CLI
 
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
         while !TarkovPedia::Scrapper.exist?(name)
+            system('clear')
             puts "------------------------------------------"
-            puts "\n\nSorry we could not find your #{type}."
-            puts "Check the name of the #{type} and try again: "
+            puts "Sorry we could not find your #{type}."
+            puts "Check the name of the #{type} and try again."
+            puts "\nWhat is the exact name of the #{type} you are interested in today?"
             name = gets.chomp
             
         end
@@ -122,19 +120,19 @@ class TarkovPedia::CLI
         list
     end
     
-    def display_processes(pedia)
+    def display_processes(pedia)   
         list = list_processes(pedia).collect{|process| process.downcase}
         process = gets.chomp.downcase
         
-        input_correct = false
-        list.each{|item| input_correct = true if item.split(/\d+ /)[1] == process}
-        while !input_correct
+        while !input_correct?(pedia, list, process)
             if process == 'price'
+                system('clear')
                 puts "------------------------------------------"
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process "
                 list_processes(pedia)
                 process = gets.chomp.downcase
             else
+                system('clear')
                 puts "------------------------------------------"
                 puts "\n\nPlease enter a valid process."
                 list_processes(pedia)
@@ -143,6 +141,11 @@ class TarkovPedia::CLI
             end
         end
         process
+    end
+
+    def input_correct?(pedia, list, process)
+        list.each{|item| return true if item.split(/\d+ /)[1] == process}
+        false
     end
 
     def display_results(pedia, process)
@@ -155,7 +158,7 @@ class TarkovPedia::CLI
     def action?(pedia,process)
         
         
-        list = <<-DOC
+        list = <<-DOC.gsub /^\s*/, ''
         
         1. To go back type 'back'
 
@@ -171,7 +174,9 @@ class TarkovPedia::CLI
         name = pedia.name
         
         if action == 'back'
+            system('clear')            
             process = self.display_processes(pedia) 
+            system('clear')
             puts "------------------------------------------"
             display_results(pedia, process)
             puts "------------------------------------------"
@@ -179,13 +184,16 @@ class TarkovPedia::CLI
             puts "------------------------------------------"
 
         elsif action  == 'main'
+            system('clear')
             menu
         elsif action == 'exit'
+            system('clear')
             puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."
             puts "Thank you for using this product."
             puts "Goodbye!"
             sleep(3)
         else
+            system('clear')
             puts "Action not recognize, please try again."
             action?(pedia, process)
         end

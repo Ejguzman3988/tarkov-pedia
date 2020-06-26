@@ -51,16 +51,30 @@ class TarkovPedia::Pedia
     end
 
     def assign?(process)
-        if @process[process] == nil
-            @process[process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
+        actual_process = find_process_name(process)
+        
+        if @process[actual_process] == nil
+            @process[actual_process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
         else
             puts "Old Result"
-            @process[process]
+            @process[actual_process]
         end
+    end
+
+    #WORKING ON FIXING SPACING BUG WITH PROCESSES
+    def find_process_name(process)
+        formatted_processes = @process.keys.join.split(/\d+/).join.split('.').join.downcase.split(' ')
+        keys = @process.keys
+        formatted_processes.each_with_index do |obj,index|
+            binding.pry
+            return keys[index] if obj == process
+        end
+        
+        nil
     end
     
     def results(process)
-
-        @process[process]
+        actual_process = find_process_name(process)
+        @process[actual_process]
     end
 end
