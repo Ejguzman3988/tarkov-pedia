@@ -2,12 +2,12 @@ class TarkovPedia::Pedia
 
     attr_accessor :interest, :name, :process
     @@all = []
-    @@processes = {}
     
     def initialize(interest, name)
 
         @interest = interest
         @name = name
+        @process = {}
         grab_processes
         save
     end
@@ -39,29 +39,28 @@ class TarkovPedia::Pedia
         
     end
 
-    def self.list_processes
-        @@processes.keys
+    def list_processes
+        @process.keys
     end
 
     def grab_processes
         # @@processes['descri]ption'
         # @@processes['price']
-        #TarkovPedia::Scrapper.find_processes -> List of processes
-        TarkovPedia::Scrapper.find_processes.each{|process| @@processes[process] = nil}
-
+        #TarkovPedia::Scrapper.find_processes -> List of processes      
+        TarkovPedia::Scrapper.find_processes.each{|process| @process[process] = nil} 
     end
 
     def assign?(process)
-        if @@processes[process] == nil
-            @@processes[process] = TarkovPedia::Scrapper.find_results(process) #-> text for that specific process
+        if @process[process] == nil
+            @process[process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
         else
             puts "Old Result"
-            @@processes[process]
+            @process[process]
         end
     end
     
     def results(process)
 
-        @@processes[process]
+        @process[process]
     end
 end

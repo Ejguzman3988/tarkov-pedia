@@ -35,7 +35,7 @@ class TarkovPedia::Scrapper
         #checks if Dorm key - Key is captilized after number
         #checks if Shoreline key - key is not capitilized
         #checks if More than 1 of the first letters is capitalized
-        
+
     end
 
     def self.url_exist?(url)
@@ -59,10 +59,10 @@ class TarkovPedia::Scrapper
         
     end
 
-    def self.find_results(process)
+    def self.find_results(pedia, process)
      
         
-        processes = TarkovPedia::Pedia.list_processes
+        processes = pedia.list_processes
         index = processes.find_index(process)+1 #index of the process
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         

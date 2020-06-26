@@ -110,7 +110,7 @@ class TarkovPedia::CLI
     end
 
     def list_processes(pedia)
-        list = TarkovPedia::Pedia.list_processes
+        list = pedia.list_processes
         puts "\n"
         
         #lists processes starting with price. (Price isn't in GAME PEDIA)
