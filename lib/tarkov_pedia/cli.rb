@@ -114,13 +114,10 @@ class TarkovPedia::CLI
         puts "\n"
         
         #lists processes starting with price. (Price isn't in GAME PEDIA)
-        list.each_with_index do |process, i|
-            if i == 0
-                puts "#{i+1}. Price \n#{i+2}. #{process}"
-            else
-                puts "#{i+2}. #{process} "
-            end
+        list.each do |process|
+            puts process
         end
+        puts "#{list.length}. Price"
         puts "\n\nWhat would you like to search for concerning #{pedia.name}?"
         list
     end
@@ -129,8 +126,9 @@ class TarkovPedia::CLI
         list = list_processes(pedia).collect{|process| process.downcase}
         process = gets.chomp.downcase
         
-        
-        while !list.include?(process)
+        input_correct = false
+        list.each{|item| input_correct = true if item.split(/\d+ /)[1] == process}
+        while !input_correct
             if process == 'price'
                 puts "------------------------------------------"
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process "
