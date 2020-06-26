@@ -73,8 +73,8 @@ class TarkovPedia::Pedia
 
     # class method that finds or creates a pedia object by the interest and name
     # 
-    # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
-    # @return [Pedia] The existing Pedia object or new created Pedia obj.
+    # @param process [String] Process - 'description', 'location', 'price', 'etc.'
+    # @return [String] .
     def assign?(process)
         actual_process = find_process_name(process, @process.keys)
         if @process[actual_process] == nil

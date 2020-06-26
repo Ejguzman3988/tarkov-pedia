@@ -20,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Click this link to see a brief description on how to use the program.
+[Youtube Demo of Tarkov-Pedia](https://youtu.be/gemw6MFVZgI)
 
 ## Development
 
