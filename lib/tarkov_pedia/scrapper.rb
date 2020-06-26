@@ -16,7 +16,14 @@ class TarkovPedia::Scrapper
         begin
             @html = open(url)
             @doc = Nokogiri::HTML(@html)
-            
+        
+            #checks if the input is an INTEREST
+            heading = @doc.search("#firstHeading").text
+            if @doc.search("#mw-panel").text.include?(heading)
+                false
+            else
+                @doc
+            end
         rescue => exception
             
             false
@@ -45,7 +52,7 @@ class TarkovPedia::Scrapper
             elsif !(start_element.text.include?('[edit | edit source]'))
                 start_element = start_element.next_element
                 
-            else  
+            else 
                 start_element = start_element.next_element
                 index = index - 1
             end  

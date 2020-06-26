@@ -16,16 +16,14 @@ class TarkovPedia::CLI
         All information used on this program was derived from:
         https://escapefromtarkov.gamepedia.com/
         https://tarkov-market.com/
-
-
         DOC
+        puts "------------------------------------------"
+        puts "Type 'exit' at anytime to exit.\n\n"
 
     end  
 
     #Handles user Inputs
     def menu
-        puts "------------------------------------------"
-        
         
         #displays list of possible interest (items, quests, etc)
         interest = list_interests
@@ -44,10 +42,10 @@ class TarkovPedia::CLI
         
         
         system('clear')
-        puts"The #{process} of your #{interest} search, #{name}: "
-        puts "------------------------------------------"
+        puts "The #{process} of your #{interest} search, #{name}:".underline
+        puts "\n\n"
         display_results(pedia, process)
-        puts "------------------------------------------"
+        puts "------------------------------------------\n"
         
         
         action?(pedia, process)
@@ -64,45 +62,44 @@ class TarkovPedia::CLI
         DOC
         
         puts list
-        puts "\n\nWhat would you like to search for?"
+        puts "\n\nWhat would you like to search for?".bold
         interest = gets.chomp.downcase #Items
-        
+        exit?(interest)
         #Checks input from user
 
         while interest != 'items'
             if interest == 'quests'
                 system('clear')
-                puts "\n\n Funtionality not supported yet. \n Please enter another search query: "
+                puts "\n\nFuntionality not supported yet. \n Please enter another search query: ".bold
                 puts list
                 interest = gets.chomp.downcase
-                
+                exit?(interest)
             else
                 system('clear')
-                puts " \n\n Please enter a valid search query: "
+                puts " \n\nPlease enter a valid search query: ".bold
                 puts list
                 interest = gets.chomp.downcase
-                
+                exit?(interest)
             end
         end
         type = interest.delete_suffix('s')
     end
 
     def name?(type)
-        
-        puts "\nWhat is the exact name of the #{type} you are interested in today?"
+        exact = "EXACT".underline
+        puts "\nWhat is the #{exact} name of the #{type} you are interested in today?"
         
         name = gets.chomp
-
-
+        exit?(name)
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
         while !TarkovPedia::Scrapper.exist?(name)
             system('clear')
             puts "------------------------------------------"
-            puts "Sorry we could not find your #{type}."
-            puts "Check the name of the #{type} and try again."
+            puts "Sorry we could not find your #{type}.".bold
+            puts "Check the name of the #{type} and try again.".bold
             puts "\nWhat is the exact name of the #{type} you are interested in today?"
             name = gets.chomp
-            
+            exit?(name)
         end
         name
     end
@@ -110,34 +107,48 @@ class TarkovPedia::CLI
     def list_processes(pedia)
         list = pedia.list_processes
         puts "\n"
-        
+        price_index = list.length+1
         #lists processes starting with price. (Price isn't in GAME PEDIA)
-        list.each do |process|
-            puts process
+        list.each_with_index do |process,index|
+            if have_period?(process)
+                price_index -= 1
+                puts " #{process}".italic
+            else 
+                puts process
+            end
         end
-        puts "#{list.length}. Price"
-        puts "\n\nWhat would you like to search for concerning #{pedia.name}?"
+        puts "#{price_index} Price"
+        puts "\n\nWhat would you like to search for concerning #{pedia.name}?".bold
         list
+    end
+    
+    #takes a string, returns bool if it has a period.
+    def have_period?(string)
+        return true if string.include?(".")
+        false
     end
     
     def display_processes(pedia)   
         list = list_processes(pedia).collect{|process| process.downcase}
         process = gets.chomp.downcase
+        exit?(process)
         
         while !input_correct?(pedia, list, process)
             if process == 'price'
                 system('clear')
                 puts "------------------------------------------"
-                puts "\n\nFunctionality not supported yet.\nPlease enter another process "
+                puts "\n\nFunctionality not supported yet.\nPlease enter another process ".bold
                 list_processes(pedia)
                 process = gets.chomp.downcase
+                exit?(process)
             else
                 system('clear')
                 puts "------------------------------------------"
-                puts "\n\nPlease enter a valid process."
+                puts "\n\nPlease enter a valid process.".bold
                 list_processes(pedia)
 
                 process = gets.chomp.downcase
+                exit?(process)
             end
         end
         process
@@ -169,7 +180,6 @@ class TarkovPedia::CLI
         DOC
         puts list
         action = gets.chomp.downcase
-
         interest = pedia.interest
         name = pedia.name
         
@@ -187,15 +197,33 @@ class TarkovPedia::CLI
             system('clear')
             menu
         elsif action == 'exit'
-            system('clear')
-            puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete."
-            puts "Thank you for using this product."
-            puts "Goodbye!"
-            sleep(3)
+            puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete.".bold
+            close
         else
             system('clear')
-            puts "Action not recognize, please try again."
+            puts "Action not recognize, please try again.".bold
             action?(pedia, process)
+        end
+    end
+
+    def close
+        index = 3
+        while index > -1
+            system('clear')
+            puts "Thank you for using this product."
+            puts "Goodbye!"
+            puts index
+            sleep(1)
+            index -= 1
+        end
+        system('clear')
+        exit
+        
+    end
+
+    def exit?(input)
+        if input == 'exit'
+            close
         end
     end
 end
