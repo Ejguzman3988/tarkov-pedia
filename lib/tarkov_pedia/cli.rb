@@ -147,6 +147,12 @@ class TarkovPedia::CLI
         process
     end
 
+    def display_results(pedia, process)
+        interest = pedia.interest
+        name = pedia.name
+        pedia.assign?(process)
+        puts pedia.results(process)
+    end
 
     def action?(pedia,process)
         
@@ -165,7 +171,6 @@ class TarkovPedia::CLI
 
         interest = pedia.interest
         name = pedia.name
-        #process = pedia.process
         
         if action == 'back'
             process = self.display_processes(pedia) 
@@ -186,12 +191,5 @@ class TarkovPedia::CLI
             puts "Action not recognize, please try again."
             action?(pedia, process)
         end
-    end
-
-    def display_results(pedia, process)
-        interest = pedia.interest
-        name = pedia.name
-        pedia.assign?(process)
-        puts pedia.results(process)
     end
 end

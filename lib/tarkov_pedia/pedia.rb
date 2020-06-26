@@ -21,11 +21,6 @@ class TarkovPedia::Pedia
         @@all
     end
 
-    def results(process)
-
-        @@processes[process]
-    end
-
     #find takes argument of a bool, pedia object.
     def self.find_by_interest_name(interest, name)
         self.all.find{|pedia| pedia.name == name}
@@ -45,8 +40,6 @@ class TarkovPedia::Pedia
     end
 
     def self.list_processes
-        values = []
-        @@processes.each_value{|value| values << value}
         @@processes.keys
     end
 
@@ -65,5 +58,10 @@ class TarkovPedia::Pedia
             puts "Old Result"
             @@processes[process]
         end
+    end
+    
+    def results(process)
+
+        @@processes[process]
     end
 end

@@ -30,6 +30,13 @@ class TarkovPedia::Scrapper
         url_exist?(url)
         
     end
+    #takes arg of name, returns array of different cases
+    def cases(name)
+        #checks if Dorm key - Key is captilized after number
+        #checks if Shoreline key - key is not capitilized
+        #checks if More than 1 of the first letters is capitalized
+        
+    end
 
     def self.url_exist?(url)
         begin
