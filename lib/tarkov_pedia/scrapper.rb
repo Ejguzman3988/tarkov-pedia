@@ -35,7 +35,7 @@ class TarkovPedia::Scrapper
         
         processes = pedia.list_processes 
         pedia.format_list(processes)  #formats the list into one where we can handle spaces or dots
-        index = processes.find_index(pedia.find_process_name(process))+1 #index of the process using find_process_name from pedia
+        index = processes.find_index(pedia.find_process_name(process, processes))+1 #index of the process using find_process_name from pedia
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         
         #starts at the first element and moves down until it finds the element we are interested in

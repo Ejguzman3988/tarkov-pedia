@@ -51,8 +51,7 @@ class TarkovPedia::Pedia
     end
 
     def assign?(process)
-        actual_process = find_process_name(process)
-        #binding.pry
+        actual_process = find_process_name(process, @process.keys)
         if @process[actual_process] == nil
             @process[actual_process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
         else
@@ -81,14 +80,14 @@ class TarkovPedia::Pedia
     end
 
     #WORKING ON FIXING SPACING BUG WITH PROCESSES
-    def find_process_name(process)
-        keys = @process.keys
-        format_list(keys)
-        #formats the rest of the keys by getting rid of the numbers
-        formatted_processes = keys.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
-        
+    def find_process_name(process, list = @process.keys)
+        # keys = @process.keys
+        # format_list(keys)
+        # #formats the rest of the keys by getting rid of the numbers
+        # formatted_processes = keys.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
+        formatted_processes = list.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
         formatted_processes.each_with_index do |obj,index|
-            return keys[index] if obj == process
+            return list[index] if obj == process
         end
         
         nil
