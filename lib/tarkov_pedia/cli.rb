@@ -42,8 +42,7 @@ class TarkovPedia::CLI
         
         
         system('clear')
-        puts "The #{process} of your #{interest} search, #{name}:".underline
-        puts "\n\n"
+        puts "------------------------------------------\n"
         display_results(pedia, process)
         puts "------------------------------------------\n"
         
@@ -162,6 +161,8 @@ class TarkovPedia::CLI
     def display_results(pedia, process)
         interest = pedia.interest
         name = pedia.name
+        puts "The #{process} of your #{interest} search, #{name}:".underline
+        puts "\n\n"
         pedia.assign?(process)
         puts pedia.results(process)
     end
@@ -197,7 +198,6 @@ class TarkovPedia::CLI
             system('clear')
             menu
         elsif action == 'exit'
-            puts "Your search for the #{process} of the #{pedia.interest}, #{pedia.name}, is complete.".bold
             close
         else
             system('clear')
