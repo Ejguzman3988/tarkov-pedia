@@ -48,7 +48,7 @@ class TarkovPedia::CLI
         
         
         action?(pedia, process)
-        puts "------------------------------------------"
+
         
     end
 
@@ -69,14 +69,16 @@ class TarkovPedia::CLI
         while interest != 'items'
             if interest == 'quests'
                 system('clear')
-                puts "\n\nFuntionality not supported yet. \n Please enter another search query: ".bold
+                puts "Funtionality not supported yet. \nPlease enter another search query: ".bold
                 puts list
+                puts "\n\nWhat would you like to search for?".bold
                 interest = gets.chomp.downcase
                 exit?(interest)
             else
                 system('clear')
-                puts " \n\nPlease enter a valid search query: ".bold
+                puts "Please enter a valid search query: ".bold
                 puts list
+                puts "\n\nWhat would you like to search for?".bold
                 interest = gets.chomp.downcase
                 exit?(interest)
             end
@@ -93,7 +95,6 @@ class TarkovPedia::CLI
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
         while !TarkovPedia::Scrapper.exist?(name)
             system('clear')
-            puts "------------------------------------------"
             puts "Sorry we could not find your #{type}.".bold
             puts "Check the name of the #{type} and try again.".bold
             puts "\nWhat is the exact name of the #{type} you are interested in today?"
@@ -105,7 +106,6 @@ class TarkovPedia::CLI
 
     def list_processes(pedia)
         list = pedia.list_processes
-        puts "\n"
         price_index = list.length+1
         #lists processes starting with price. (Price isn't in GAME PEDIA)
         list.each_with_index do |process,index|
@@ -135,15 +135,13 @@ class TarkovPedia::CLI
         while !input_correct?(pedia, list, process)
             if process == 'price'
                 system('clear')
-                puts "------------------------------------------"
                 puts "\n\nFunctionality not supported yet.\nPlease enter another process ".bold
                 list_processes(pedia)
                 process = gets.chomp.downcase
                 exit?(process)
             else
                 system('clear')
-                puts "------------------------------------------"
-                puts "\n\nPlease enter a valid process.".bold
+                puts "Please enter a valid process.".bold
                 list_processes(pedia)
 
                 process = gets.chomp.downcase
