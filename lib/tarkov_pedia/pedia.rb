@@ -1,33 +1,51 @@
 class TarkovPedia::Pedia 
 
     attr_accessor :interest, :name, :process
-    @@all = []
+    @@all = [] #used to stored the instances
     
+    # Each object is initialized with an interest, a name, and processes. Saves the instance.
+    # 
+    # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
+    # @return [String] the saved object.
     def initialize(interest, name)
 
         @interest = interest
         @name = name
         @process = {}
-        grab_processes
+        grab_processes #grabs processes and saves to @process
         save
     end
 
+    # Saves the pedia instance into an array of pedia. 
+    # 
+    # @return [Array] Array of pedia objects.  
     def save
         @@all << self
         
     end
     
+    # Class method that shows all the pedia instances created.
+    #
+    # @return [Array] Array of pedia  objects
     def self.all
         @@all
     end
-
-    #find takes argument of a bool, pedia object.
+    
+    # class method that finds a pedia object by the interest and name
+    # 
+    # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
+    # @return [Pedia] the first pedia obj with the same name.
     def self.find_by_interest_name(interest, name)
         self.all.find{|pedia| pedia.name == name}
     end
 
+    # class method that finds or creates a pedia object by the interest and name
+    # 
+    # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
+    # @return [Pedia] The existing Pedia object or new created Pedia obj.
     def self.find_or_create_by_interest_name(interest, name)
-        obj = self.find_by_interest_name(interest, name)
+        obj = self.find_by_interest_name(interest, name) # Used to check if obj already exists
+        
         if obj.nil?
             obj = self.new(interest, name)
         end
@@ -39,17 +57,24 @@ class TarkovPedia::Pedia
         
     end
 
+    # Method that lists all the processes
+    #
+    # @return [Array] Returns an array of strings representing the processes
     def list_processes
         @process.keys
     end
 
-    def grab_processes
-        # @@processes['descri]ption'
-        # @@processes['price']
-        #TarkovPedia::Scrapper.find_processes -> List of processes      
+    # Method that grabs processes using the scrapper class and sets the keys to the instance varible @process
+    #
+    # @return [Hash] hash of keys with empty values
+    def grab_processes    
         TarkovPedia::Scrapper.find_processes.each{|process| @process[process] = nil} 
     end
 
+    # class method that finds or creates a pedia object by the interest and name
+    # 
+    # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
+    # @return [Pedia] The existing Pedia object or new created Pedia obj.
     def assign?(process)
         actual_process = find_process_name(process, @process.keys)
         if @process[actual_process] == nil

@@ -1,8 +1,6 @@
 # Tarkov-Pedia
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/tarkov_pedia`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Tarkov-Pedia is a gem that allows you to search any item in tarkov. This Gem takes user input and returns information from the [Official Escape from Tarkov Wiki](https://escapefromtarkov.gamepedia.com/Escape_from_Tarkov_Wiki).  
 
 ## Installation
 

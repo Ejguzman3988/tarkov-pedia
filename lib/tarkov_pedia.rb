@@ -2,7 +2,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'pry'
 require 'colorize'
-requior 'ghi'
+require 'ghi'
 
 require_relative "./tarkov_pedia/version"
 require_relative "./tarkov_pedia/cli"
