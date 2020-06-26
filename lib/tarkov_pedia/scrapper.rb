@@ -33,14 +33,12 @@ class TarkovPedia::Scrapper
 
     def self.find_results(pedia, process)
         
-        processes = pedia.list_processes
-        processes = format_list(processes)
-        #Processes array of processes getting rid of numbers, periods, and spaces, as well as downcasing.
-        binding.pry
-        index = processes.find_index(pedia.find_process_name(process))+1 #index of the process
+        processes = pedia.list_processes 
+        pedia.format_list(processes)  #formats the list into one where we can handle spaces or dots
+        index = processes.find_index(pedia.find_process_name(process))+1 #index of the process using find_process_name from pedia
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         
-        
+        #starts at the first element and moves down until it finds the element we are interested in
         while index > 1
             if !(start_element.attributes['class'].nil?) && start_element.attributes['class'].value.include?('va-navbox')
                 break
@@ -53,8 +51,9 @@ class TarkovPedia::Scrapper
             end  
         end
         
-        results = ''
+        results = '' #where we will store our results
        
+        #continues until it reaches another section
         while !(start_element.text.include?('[edit | edit source]'))
             #checking if element is currently a drop down box.
             if !(start_element.attributes['class'].nil?) && start_element.attributes['class'].value.include?('va-navbox')
@@ -63,6 +62,7 @@ class TarkovPedia::Scrapper
                 results << start_element.text
             end
 
+            #checks if the next element is empty
             if !start_element.next_element.nil?
                 start_element = start_element.next_element
             else

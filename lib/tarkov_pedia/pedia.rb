@@ -61,14 +61,12 @@ class TarkovPedia::Pedia
         end
     end
 
-    #WORKING ON FIXING SPACING BUG WITH PROCESSES
-    def find_process_name(process)
-        keys = @process.keys
+    def format_list(list)
         keys_with_dot = []
         index_with_dot = []
 
         #gathers all the processes with dots and their index
-        keys.each_with_index do |process,index|
+        list.each_with_index do |process,index|
             if process.include?(".")
                 keys_with_dot << process
                 index_with_dot << index
@@ -78,9 +76,14 @@ class TarkovPedia::Pedia
         #This is necessary to deal with any process that has a 3.1 or 3.2.
         if !keys_with_dot.empty?
             formatted_keys = keys_with_dot.collect{|key| key.split(".")[1]} #gathers all the new keys
-            formatted_keys.each_with_index{|new_key, index| keys[index_with_dot[index]] = new_key} #replaces old keys with formatted keys
+            formatted_keys.each_with_index{|new_key, index| list[index_with_dot[index]] = new_key} #replaces old keys with formatted keys
         end
-        binding.pry
+    end
+
+    #WORKING ON FIXING SPACING BUG WITH PROCESSES
+    def find_process_name(process)
+        keys = @process.keys
+        format_list(keys)
         #formats the rest of the keys by getting rid of the numbers
         formatted_processes = keys.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
         
