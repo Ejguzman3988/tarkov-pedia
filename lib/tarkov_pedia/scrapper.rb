@@ -33,9 +33,11 @@ class TarkovPedia::Scrapper
 
     def self.find_results(pedia, process)
         
-        processes = pedia.list_processes.join().split(/\d+/).join.downcase.split(".").join().split(" ")
+        processes = pedia.list_processes
+        processes = format_list(processes)
         #Processes array of processes getting rid of numbers, periods, and spaces, as well as downcasing.
-        index = processes.find_index(process)+1 #index of the process
+        binding.pry
+        index = processes.find_index(pedia.find_process_name(process))+1 #index of the process
         start_element = @doc.search("#mw-content-text > div > p")[1]  # Starting element
         
         

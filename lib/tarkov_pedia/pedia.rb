@@ -52,7 +52,7 @@ class TarkovPedia::Pedia
 
     def assign?(process)
         actual_process = find_process_name(process)
-        
+        #binding.pry
         if @process[actual_process] == nil
             @process[actual_process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
         else
@@ -63,10 +63,28 @@ class TarkovPedia::Pedia
 
     #WORKING ON FIXING SPACING BUG WITH PROCESSES
     def find_process_name(process)
-        formatted_processes = @process.keys.join.split(/\d+/).join.split('.').join.downcase.split(' ')
         keys = @process.keys
+        keys_with_dot = []
+        index_with_dot = []
+
+        #gathers all the processes with dots and their index
+        keys.each_with_index do |process,index|
+            if process.include?(".")
+                keys_with_dot << process
+                index_with_dot << index
+            end
+        end
+        
+        #This is necessary to deal with any process that has a 3.1 or 3.2.
+        if !keys_with_dot.empty?
+            formatted_keys = keys_with_dot.collect{|key| key.split(".")[1]} #gathers all the new keys
+            formatted_keys.each_with_index{|new_key, index| keys[index_with_dot[index]] = new_key} #replaces old keys with formatted keys
+        end
+        binding.pry
+        #formats the rest of the keys by getting rid of the numbers
+        formatted_processes = keys.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
+        
         formatted_processes.each_with_index do |obj,index|
-            binding.pry
             return keys[index] if obj == process
         end
         
