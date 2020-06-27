@@ -43,9 +43,18 @@ class TarkovPedia::Scrapper
     # @return [array] returns an array of strings containing the processes of the item
     def self.find_processes
           
-         
-        list = @doc.css('#toc > ul').text.split("\n").reject{|obj| obj == ""}
+        processes = {}
+        list = @doc.css('h2 span.mw-headline').map do |process_element|
+            elements = []
+            el = process_element.parent.next_element
+            while el && el.name != 'h2'
+                elements << el
+                el = el.next_element
+            end
         
+            processes[process_element.text] = elements.map{|e| e.text}.join(' ')
+        end
+        processes
     end
 
     # Uses nokogori to store HTML. It rescues exception raised by nokogiri and returns false
@@ -55,7 +64,8 @@ class TarkovPedia::Scrapper
     def self.find_results(pedia, process)
         
         processes = pedia.list_processes # grabs all the processes in a list
-        pedia.format_list(processes) 
+        pedia.format_list(processes)
+        binding.pry
         index = processes.find_index(pedia.find_process_name(process, processes))+1 # index of the process inside the list of processes
         start_element = @doc.search("#mw-content-text > div > p")[1]  # The first process on the html page
         

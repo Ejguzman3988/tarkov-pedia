@@ -18,7 +18,7 @@ class TarkovPedia::CLI
         https://tarkov-market.com/
         DOC
         puts "------------------------------------------"
-        puts "Type 'exit' at anytime to exit.\n\n"
+        puts "interest 'exit' at anytime to exit.\n\n"
 
     end  
 
@@ -30,15 +30,12 @@ class TarkovPedia::CLI
         system('clear')
         
         
-        #Asks user for the name of their interest
-        name = self.name?(interest)
+        #Asks user for the name of their interest -- change name?
+        pedia = self.name?(interest)
         system('clear')
         
-        
-        
-        pedia = TarkovPedia::Pedia.find_or_create_by_interest_name(interest, name) #creates Pedia Obj
+    
         process = self.display_processes(pedia) 
-        
         
         
         system('clear')
@@ -83,25 +80,29 @@ class TarkovPedia::CLI
                 exit?(interest)
             end
         end
-        type = interest.delete_suffix('s')
+        interest = interest.delete_suffix('s')
     end
 
-    def name?(type)
+    def name?(interest)
         exact = "EXACT".underline
-        puts "\nWhat is the #{exact} name of the #{type} you are interested in today?"
+        puts "\nWhat is the #{exact} name of the #{interest} you are interested in today?"
         
         name = gets.chomp
         exit?(name)
         #REMEMBER: NEED TO ADD FUNTIONALITY TO SCRAPE AND CHECK IF PAGE EXISTS
-        while !TarkovPedia::Scrapper.exist?(name)
+        
+        while !pedia ||= TarkovPedia::Pedia.find_or_create_by_interest_name(interest ,name)
             system('clear')
-            puts "Sorry we could not find your #{type}.".bold
-            puts "Check the name of the #{type} and try again.".bold
-            puts "\nWhat is the exact name of the #{type} you are interested in today?"
+            puts "Sorry we could not find your #{interest}.".bold
+            puts "Check the name of the #{interest} and try again.".bold
+            puts "\nWhat is the exact name of the #{interest} you are interested in today?"
             name = gets.chomp
+              
             exit?(name)
         end
-        name
+
+
+        pedia
     end
 
     def list_processes(pedia)
@@ -148,11 +149,11 @@ class TarkovPedia::CLI
                 exit?(process)
             end
         end
-        process
+        process.capitalize
     end
 
     def input_correct?(pedia, list, process)
-        list.each{|item| return true if item.split(/\d+ /)[1] == process}
+        list.each{|item| return true if item == process}
         false
     end
 
@@ -161,8 +162,7 @@ class TarkovPedia::CLI
         name = pedia.name
         puts "The #{process} of your #{interest} search, #{name}:".underline
         puts "\n\n"
-        pedia.assign?(process)
-        puts pedia.results(process)
+        puts pedia.process[process]
     end
 
     def action?(pedia,process)
@@ -170,11 +170,11 @@ class TarkovPedia::CLI
         
         list = <<-DOC.gsub /^\s*/, ''
         
-        1. To go back type 'back'
+        1. To go back interest 'back'
 
-        2. To go to main menu type 'main'
+        2. To go to main menu interest 'main'
         
-        3. To exit type 'exit'
+        3. To exit interest 'exit'
         
         DOC
         puts list

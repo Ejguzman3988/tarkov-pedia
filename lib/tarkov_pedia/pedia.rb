@@ -36,7 +36,9 @@ class TarkovPedia::Pedia
     # @param interest, name [String, String] Interest - 'items, quests, etc' Name - 'bitcoin, GP coin, etc'
     # @return [Pedia] the first pedia obj with the same name.
     def self.find_by_interest_name(interest, name)
-        self.all.find{|pedia| pedia.name == name}
+        obj = self.all.find{|pedia| pedia.name == name}\
+
+
     end
 
     # class method that finds or creates a pedia object by the interest and name
@@ -45,16 +47,15 @@ class TarkovPedia::Pedia
     # @return [Pedia] The existing Pedia object or new created Pedia obj.
     def self.find_or_create_by_interest_name(interest, name)
         obj = self.find_by_interest_name(interest, name) # Used to check if obj already exists
-        
         if obj.nil?
-            obj = self.new(interest, name)
+            if !TarkovPedia::Scrapper.exist?(name) #returns scapes if exists. false if it doesnt.
+                false
+            else
+                obj = self.new(interest, name)
+            end
+        else
+            obj
         end
-
-        obj.interest = interest
-        obj.name = name
-
-        obj
-        
     end
 
     # Method that lists all the processes
@@ -68,22 +69,13 @@ class TarkovPedia::Pedia
     #
     # @return [Hash] hash of keys with empty values
     def grab_processes    
-        TarkovPedia::Scrapper.find_processes.each{|process| @process[process] = nil} 
+        TarkovPedia::Scrapper.find_processes.each{|process, value| @process[process] = value} 
     end
 
     # class method that finds or creates a pedia object by the interest and name
     # 
     # @param process [String] Process - 'description', 'location', 'price', 'etc.'
-    # @return [String] .
-    def assign?(process)
-        actual_process = find_process_name(process, @process.keys)
-        if @process[actual_process] == nil
-            @process[actual_process] = TarkovPedia::Scrapper.find_results(self, process) #-> text for that specific process
-        else
-            puts "Old Result"
-            @process[actual_process]
-        end
-    end
+    # @return [String]
 
     def format_list(list)
         keys_with_dot = []
@@ -104,12 +96,7 @@ class TarkovPedia::Pedia
         end
     end
 
-    #WORKING ON FIXING SPACING BUG WITH PROCESSES
     def find_process_name(process, list = @process.keys)
-        # keys = @process.keys
-        # format_list(keys)
-        # #formats the rest of the keys by getting rid of the numbers
-        # formatted_processes = keys.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
         formatted_processes = list.join.downcase.split(/\d+ /).reject{|obj| obj == ""}
         formatted_processes.each_with_index do |obj,index|
             return list[index] if obj == process
@@ -117,9 +104,5 @@ class TarkovPedia::Pedia
         
         nil
     end
-    
-    def results(process)
-        actual_process = find_process_name(process)
-        @process[actual_process]
-    end
+
 end
