@@ -1,0 +1,22 @@
+{
+  "name": "tarkov_pedia",
+  "version": "1.0.0",
+  "description": "Tarkov-Pedia is a gem that allows you to search any item in tarkov. This Gem takes user input and returns information from the [Official Escape from Tarkov Wiki](https://escapefromtarkov.gamepedia.com/Escape_from_Tarkov_Wiki).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ejguzman3988/tarkov-pedia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ejguzman3988/tarkov-pedia/issues"
+  },
+  "homepage": "https://github.com/Ejguzman3988/tarkov-pedia#readme"
+}

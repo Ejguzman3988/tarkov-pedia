@@ -1,35 +1,8 @@
-- Changed the intiialization of Pedia class to two arguments. Taking out the process, in order to be able to check if a search input exists.
-- Adds a .exist? class method to scrapper, to scrape the websites and check if the searched item exists.
-- Created a display_results in the CLI that pulls and puts the data from the results method in pedia.
-- Took the results method from the cli and put it in the pedia class. Since this is just supposed to store the data, and it takes no input, it isnt part of the CLI.
-- initialized the pedia class in CLI with 3 arguments.
-- Fixed arrows on the diagram. Started creating the pedia class. Added accessor attributes interest, name, process.
-- Edited the flow diagram to better represent what the code will do. Added to the scrapper class a functionality to check if a search exist      
-- Added an action function which thats the action of the user after the result has been posted. Allows user to go back to see a different process, go back to main menu, or exit the program.
-- Made sure each input is downcased and aded looping functionality to list_process
-- added a results function that displays the results of the search
-- Added a list_process method that takes in two string arguments. The type of search and the name of the thing we want to search. It returns the 
-different processes that can be done on the obj.
-- Put the while loop for interst inside the list_interest function and fixed the functionality of the code afterwards.
-- Changed the return of interest to returning a string called type. Added a function name? that accepts a string and asks for the name of what the user wants to search
-- Added loop functionality to cli so the program can work with different inputs
-- added a function to CLI called list_interests, that lists what search type the User wants to do.
-- Fixed wrong name on scrapper class. Added an exit option to final menu option
-- Added a outline for my CLI, with comments on how the CLI will interact with the Pedia class.
-- Added a outline for my CLI, with comments on how the CLI will interact with the Pedia class.
-- Created a scrapper file that will handle the scrapping of the websites.
-- Added a pedia file that is going to handle creating objects of user requested searches and handle when to scrape websites.
-- Deleted the interest class because its function was exactly the same as what The CLI was supposed to do.
-- Created a rough flow chart diagram of what the code should do.
-- small changes to spacing and indentation
-- Created a greeting class, that starts the cli with a greeting trying to figure out the users interest. Added a require for the interest file. Organized code to make it run successfully.
-- created a new file called interest. This file holds a class that represents the interest of the user search. The class has a type, name, and process.
-- Realized that building a menu class would serve the same funciton as the CLI class. Put back the code from the menu class into the CLI class and deleted the menu class.
-- decided to add a new class called menu beacuse the method in CLI was going to be way too big. Created a class with three attributes. Interst, Name, Process. This class is designed to take the input of the user.
-- changed the name of the method in CLI to menu and added the rest of the user requests and input
-- created a greeting method that asks user for input and returns the input as a lowercased string
-- modified the tarkov_pedia files to require the cli class
-- Created a new file called cli.rb that is being called in the bin executable.
-- updated README title to Tarkov-Pedia
-- updated notes
-- initial commit
+#### 1.0.0 (2020-06-27)
+
+##### Other Changes
+
+*  The last process takes the info from the table at the bottom of the page. The pages with sub processes (3. Location \n 3.1 Interchange) does not display the sub process, and adds the process and  results into the parent process. ([c6ec92c9](https://github.com/Ejguzman3988/tarkov-pedia/commit/c6ec92c90192f798f0b7378a66f4d2c2d4187d7b))
+*  if input is an interest (keys, quests, location, etx) ([87a46dfb](https://github.com/Ejguzman3988/tarkov-pedia/commit/87a46dfb634bddfb7be79507b202e883072f5e26))
+*  Captilization when looking for item doesnt redirect to correct site if the correct URL uses more than two capitalized letters ([defe72f7](https://github.com/Ejguzman3988/tarkov-pedia/commit/defe72f70bb7b8b7ea0d68f150a5598ab5edf978))
+
