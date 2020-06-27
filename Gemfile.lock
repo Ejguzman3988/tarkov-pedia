@@ -21,7 +21,7 @@ GEM
       method_source (~> 1.0)
     pygments.rb (1.2.1)
       multi_json (>= 1.0.0)
-    rake (12.3.2)
+    rake (12.3.3)
 
 PLATFORMS
   ruby
@@ -30,7 +30,7 @@ DEPENDENCIES
   colorize
   ghi
   pry
-  rake (~> 12.0)
+  rake (~> 12.3)
   tarkov_pedia!
 
 BUNDLED WITH
